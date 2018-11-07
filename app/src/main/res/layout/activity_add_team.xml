@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/teamName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Team Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/player1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Player 1"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/player2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Player 2"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/player3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Player 3"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/player4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Player 4"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/player5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Player 5"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Record"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/addTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Team" />
+</LinearLayout>
