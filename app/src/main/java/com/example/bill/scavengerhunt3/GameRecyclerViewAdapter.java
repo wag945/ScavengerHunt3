@@ -33,7 +33,8 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Game game = mData.get(position);
-        holder.mGameIdTextView.setText("Id: "+Integer.toString(game.getGameId()));
+        holder.mGameIdTextView.setText("Name: "+game.getGameName());
+        holder.mNumTeamsTextView.setText("Num teams: "+game.getNumTeams());
         holder.mGameStatusTextView.setText("Status: "+game.getGameStatus().toString());
     }
 
@@ -47,11 +48,13 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mGameIdTextView;
+        TextView mNumTeamsTextView;
         TextView mGameStatusTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
             mGameIdTextView = (TextView)itemView.findViewById(R.id.gameId);
+            mNumTeamsTextView = (TextView)itemView.findViewById(R.id.numTeams);
             mGameStatusTextView = (TextView)itemView.findViewById(R.id.gameStatus);
             itemView.setOnClickListener(this);
         }

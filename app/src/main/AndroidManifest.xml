@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".GameLobbyActivity" />
         <activity android:name=".TeamLobbyActivity" />
-        <activity android:name=".AddTeamActivity"></activity>
+        <activity android:name=".AddTeamActivity" />
+        <activity android:name=".AddGameActivity"></activity>
     </application>
 
 </manifest>

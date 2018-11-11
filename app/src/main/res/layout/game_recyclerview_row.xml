@@ -24,7 +24,17 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
+                android:textColor="@color/light_blue"/>
+
+            <TextView
+                android:id="@+id/numTeams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/gameId"
+                android:layout_marginRight="16dp"
+                android:textSize="20sp"
                 android:textColor="@color/light_blue"/>
 
             <TextView
@@ -32,9 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/gameId"
+                android:layout_toRightOf="@+id/numTeams"
                 android:layout_marginRight="16dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/light_blue"/>
 
         </RelativeLayout>
