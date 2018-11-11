@@ -19,7 +19,8 @@
         <activity android:name=".GameLobbyActivity" />
         <activity android:name=".TeamLobbyActivity" />
         <activity android:name=".AddTeamActivity" />
-        <activity android:name=".AddGameActivity"></activity>
+        <activity android:name=".AddGameActivity" />
+        <activity android:name=".GameDetailsActivity"></activity>
     </application>
 
 </manifest>
