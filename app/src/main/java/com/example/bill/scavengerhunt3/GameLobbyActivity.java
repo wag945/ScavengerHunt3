@@ -24,7 +24,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
     GameRecyclerViewAdapter adapter;
     private Button mAddGameButton;
     private Button mTeamLobbyButton;
-    private Button mAddTeamButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +57,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(GameLobbyActivity.this, TeamLobbyActivity.class);
-                GameLobbyActivity.this.startActivity(myIntent);
-            }
-        });
-
-        mAddTeamButton = (Button) findViewById(R.id.addTeamButton);
-        mAddTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(GameLobbyActivity.this, AddTeamActivity.class);
                 GameLobbyActivity.this.startActivity(myIntent);
             }
         });

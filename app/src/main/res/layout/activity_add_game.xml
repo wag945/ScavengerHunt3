@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="/Team 4"
+        android:hint="Team 4"
         android:inputType="textPersonName" />
 
     <EditText
