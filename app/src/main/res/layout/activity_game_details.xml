@@ -1,0 +1,193 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
+        <TextView
+            android:id="@+id/gameNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="16dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/gameNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/gameNameLabel"
+            android:layout_marginRight="16dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameNameLabel"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Status: "/>
+
+        <TextView
+            android:id="@+id/gameStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameNameText"
+            android:layout_toRightOf="@+id/gameStatusLabel"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameTeam1Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameStatusLabel"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Team1: "/>
+
+        <TextView
+            android:id="@+id/gameTeam1Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameStatusText"
+            android:layout_toRightOf="@+id/gameTeam1Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameTeam2Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameTeam1Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Team2: "/>
+
+        <TextView
+            android:id="@+id/gameTeam2Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameTeam1Label"
+            android:layout_toRightOf="@+id/gameTeam2Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameTeam3Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameTeam2Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Team3: "/>
+
+        <TextView
+            android:id="@+id/gameTeam3Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameTeam2Label"
+            android:layout_toRightOf="@+id/gameTeam3Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameTeam4Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameTeam3Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Team4: "/>
+
+        <TextView
+            android:id="@+id/gameTeam4Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameTeam3Label"
+            android:layout_toRightOf="@+id/gameTeam4Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+        <TextView
+            android:id="@+id/gameTeam5Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/gameTeam4Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"
+            android:text="Team5: "/>
+
+        <TextView
+            android:id="@+id/gameTeam5Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameTeam4Label"
+            android:layout_toRightOf="@+id/gameTeam5Label"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/light_blue"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/joinGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Join Game" />
+
+        <Button
+            android:id="@+id/startGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Start Game" />
+
+    </LinearLayout>
+</RelativeLayout>

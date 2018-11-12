@@ -10,21 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/gamesCardview"
-        android:background="@color/light_blue"
-        >
+        android:layout_margin="5dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             >
+
+            <ImageView
+                android:id="@+id/imageViewGame"
+                android:layout_width="99dp"
+                android:layout_height="78dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/lightlightPurple"
+                android:src="@drawable/scavenger_hunt_image"
+                android:contentDescription="@string/image_view_description" />
+
             <TextView
                 android:id="@+id/gameId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageViewGame"
                 android:layout_marginRight="16dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
+                android:textColor="@color/light_blue"/>
+
+            <TextView
+                android:id="@+id/numTeams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/gameId"
+                android:layout_marginRight="16dp"
+                android:textSize="20sp"
                 android:textColor="@color/light_blue"/>
 
             <TextView
@@ -32,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/gameId"
+                android:layout_toRightOf="@+id/numTeams"
                 android:layout_marginRight="16dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/light_blue"/>
 
         </RelativeLayout>
