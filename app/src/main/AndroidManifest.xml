@@ -20,7 +20,8 @@
         <activity android:name=".TeamLobbyActivity" />
         <activity android:name=".AddTeamActivity" />
         <activity android:name=".AddGameActivity" />
-        <activity android:name=".GameDetailsActivity"></activity>
+        <activity android:name=".GameDetailsActivity" />
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>

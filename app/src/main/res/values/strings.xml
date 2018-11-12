@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">ScavengerHunt3</string>
     <string name="image_view_description">Teams</string>
+    <string name="log_in">Log In/Sign Up</string>
+    <string name="email_address">Email</string>
+    <string name="login_button">LOGIN</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="userName">User Name</string>
+
 </resources>
