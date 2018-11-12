@@ -129,6 +129,7 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
         Toast.makeText(this,selectedGame.getGameName()+ " was selected",Toast.LENGTH_LONG).show();
         //Need to start the game details activity that will have all of the game details, join game, and start game buttons
         Intent myIntent = new Intent(GameLobbyActivity.this, GameDetailsActivity.class);
+        myIntent.putExtra("GameName",selectedGame.getGameName());
         GameLobbyActivity.this.startActivity(myIntent);
     }
 }
