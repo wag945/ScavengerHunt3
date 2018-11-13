@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -26,24 +25,12 @@ public class TeamLobbyActivity extends AppCompatActivity {
     private ListView listViewTeams;
     private TeamAdapter teamAdapter;
     private ArrayList<Team> teams;
-    private Button mAddTeamButton;
-    private Button mGameLobbyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_lobby);
         listViewTeams = (ListView) findViewById(R.id.list_view_teams);
-
-        mAddTeamButton = (Button)findViewById(R.id.addTeam);
-        mGameLobbyButton = (Button) findViewById(R.id.gameLobbyButton);
-        mGameLobbyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(TeamLobbyActivity.this, GameLobbyActivity.class);
-                TeamLobbyActivity.this.startActivity(myIntent);
-            }
-        });
 
         teams = new ArrayList<>();
 

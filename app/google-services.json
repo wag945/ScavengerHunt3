@@ -23,14 +23,6 @@
           }
         },
         {
-          "client_id": "1000501584687-ct38ld6tn85svd1ghh4hq67o4fagfasg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.bill.scavengerhunt3",
-            "certificate_hash": "61ddb4bf05c1f277ee466a5f21aa9dc95ba2a66a"
-          }
-        },
-        {
           "client_id": "1000501584687-ucei53loiv3egkdpc2k6fp0fs863r3qn.apps.googleusercontent.com",
           "client_type": 3
         }
