@@ -1,6 +1,8 @@
 package com.example.bill.scavengerhunt3;
 
+import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +22,10 @@ public class Game {
     //Replace this with the real ScavengedItem class
     private Vector<Integer> mScavengedItems;
     private Timer mTimer;
-    private GameTimer mGameTimer;
+    private String timerView;
+
+    //using a CountDownTimer that comes with android
+    private CountDownTimer mGameTimer;
     //Need a timer task to run the timer
 
     private String[] scavengeItemsBank = new String[]{"Red Sign", "Yellow Sign", "2 Right White Shoes", "2 Left Black Shoes",
@@ -128,9 +133,10 @@ public class Game {
 
     public void startGame() {
         mTimer = new Timer();
-        mGameTimer = new GameTimer();
+
         //Start a timer to run immediately and repeat every second
-        mTimer.schedule(mGameTimer,0,1000);
+        startTimer();
+        //mTimer.schedule(mGameTimer,0,1000);
         mGameState = GameState.IN_PROGRESS;
 
         //create 5 Scavenge items for the teams to find
@@ -159,6 +165,28 @@ public class Game {
                 "name: "+mGameName+" Team1: "+this.getTeam1()+" Team2: "+this.getTeam2()
         +" Team3: "+this.getTeam3()+" Team4: "+this.getTeam4()+" Team5: "+this.getTeam5());
 
+    }
+
+    public void startTimer(){
+
+        //new game timer set to 15 min, 60 sec * 15 = 900 x milliseconds, interval set to 1 second, 1000 miliseconds
+
+        mGameTimer = new CountDownTimer(900 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //setting the timer to be viewed in minute:seconds
+                timerView = millisUntilFinished / 1000 + " : " + millisUntilFinished % 60;
+            }
+
+            @Override
+            public void onFinish() {
+                timerView = "Out of Time!";
+            }
+        };
+    }
+
+    public String getTimerView() {
+        return timerView;
     }
 }
 

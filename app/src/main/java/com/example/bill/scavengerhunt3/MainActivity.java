@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
             signInUser(mUserName.getText().toString(), mPassword.getText().toString());
 
-               
+
 
             }
         });
