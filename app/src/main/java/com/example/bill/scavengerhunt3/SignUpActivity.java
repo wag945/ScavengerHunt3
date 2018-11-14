@@ -76,8 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 SignUpActivity.this.startActivity(logInIntent);
 
-                Toast toast = Toast.makeText(getApplicationContext(), "User Successfully Created", Toast.LENGTH_LONG);
-                toast.show();
+
             }
         });
 
@@ -93,7 +92,8 @@ public class SignUpActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("firebase create email", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            Toast toast = Toast.makeText(getApplicationContext(), "User Successfully Created", Toast.LENGTH_LONG);
+                            toast.show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("firebase email fail", "createUserWithEmail:failure", task.getException());
