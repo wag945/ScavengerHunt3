@@ -28,19 +28,6 @@
             android:layout_alignParentBottom="true"
             android:text="Team Lobby" />
 
-        <Button
-            android:id="@+id/addTeamButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="Add Team" />
-
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Start" />
     </LinearLayout>
 
 </RelativeLayout>

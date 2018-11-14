@@ -24,8 +24,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
     GameRecyclerViewAdapter adapter;
     private Button mAddGameButton;
     private Button mTeamLobbyButton;
-    private Button mAddTeamButton;
-    private Button mStartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +60,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
                 GameLobbyActivity.this.startActivity(myIntent);
             }
         });
-
-        mAddTeamButton = (Button) findViewById(R.id.addTeamButton);
-        mAddTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(GameLobbyActivity.this, AddTeamActivity.class);
-                GameLobbyActivity.this.startActivity(myIntent);
-            }
-        });
-
-        mStartButton = (Button) findViewById(R.id.startButton);
-        mStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(GameLobbyActivity.this, StartGameActivity.class);
-                GameLobbyActivity.this.startActivity(myIntent);
-            }
-        });
-
-
 
         //Need to populate the games from the DB
         DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("Games");
@@ -146,6 +124,12 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
     }
     @Override
     public void onItemClick (View view,int position){
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Game selectedGame = adapter.getItem(position);
+        Toast.makeText(this,selectedGame.getGameName()+ " was selected",Toast.LENGTH_LONG).show();
+        //Need to start the game details activity that will have all of the game details, join game, and start game buttons
+        Intent myIntent = new Intent(GameLobbyActivity.this, GameDetailsActivity.class);
+        myIntent.putExtra("GameName",selectedGame.getGameName());
+        GameLobbyActivity.this.startActivity(myIntent);
     }
 }

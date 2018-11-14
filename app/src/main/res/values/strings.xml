@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">ScavengerHunt3</string>
     <string name="image_view_description">Teams</string>
-    <string name="start_camera">Start Camera</string>
-    <string name="imageview">imageView</string>
-    <string name="delete_success">Images was deleted!</string>
-    <string name="delete_failure">Image deletion failed</string>
-    <string name="saved_message">Image Saved at %1$s</string>
-    <string name="not_saved">Image not saved!</string>
-    <string name="error">Error finding image</string>
-    <string name="go">GO</string>
-    <string name="permission_denied">Permission denied</string>
-    <string name="imageview_description">The imageview that contains the emojified picture</string>
+    <string name="log_in">Log In/Sign Up</string>
+    <string name="email_address">Email</string>
+    <string name="login_button">LOGIN</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="userName">User Name</string>
+
 </resources>
