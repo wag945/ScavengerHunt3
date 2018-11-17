@@ -29,6 +29,7 @@ public class GameDetailsActivity extends AppCompatActivity {
     private TextView mTeam5TextView;
     private Game game;
     private String detailGameName;
+    private TextView mTimerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class GameDetailsActivity extends AppCompatActivity {
         mTeam3TextView = (TextView)findViewById(R.id.gameTeam3Text);
         mTeam4TextView = (TextView)findViewById(R.id.gameTeam4Text);
         mTeam5TextView = (TextView)findViewById(R.id.gameTeam5Text);
+       
 
         Intent intent = getIntent();
         detailGameName = intent.getStringExtra("GameName");
@@ -58,6 +60,8 @@ public class GameDetailsActivity extends AppCompatActivity {
         mStartGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            //need to have this point to the current game activity
+                startActivity(new Intent(GameDetailsActivity.this, StartGameActivity.class));
 
             }
         });
