@@ -84,22 +84,6 @@ public class GameDetailsActivity extends AppCompatActivity {
                         mTeam4TextView.setText(team4);
                         String team5 = teamSnapshot.child("team5").getValue(String.class);
                         mTeam5TextView.setText(team5);
-                        game = new Game(name);
-                        if (team1.length() > 0) {
-                            game.addTeam(team1);
-                        }
-                        if (team2.length() > 0) {
-                            game.addTeam(team2);
-                        }
-                        if (team3.length() > 0) {
-                            game.addTeam(team3);
-                        }
-                        if (team4.length() > 0) {
-                            game.addTeam(team4);
-                        }
-                        if (team5.length() > 0) {
-                            game.addTeam(team5);
-                        }
                     }
                 }
             }
