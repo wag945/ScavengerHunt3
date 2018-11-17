@@ -43,7 +43,7 @@ public class GameDetailsActivity extends AppCompatActivity {
         mTeam3TextView = (TextView)findViewById(R.id.gameTeam3Text);
         mTeam4TextView = (TextView)findViewById(R.id.gameTeam4Text);
         mTeam5TextView = (TextView)findViewById(R.id.gameTeam5Text);
-        mTimerTextView = (TextView)findViewById(R.id.timer);
+       
 
         Intent intent = getIntent();
         detailGameName = intent.getStringExtra("GameName");
@@ -61,6 +61,7 @@ public class GameDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             //need to have this point to the current game activity
+                startActivity(new Intent(GameDetailsActivity.this, StartGameActivity.class));
 
             }
         });
