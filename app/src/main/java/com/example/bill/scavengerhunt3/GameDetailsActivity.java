@@ -43,7 +43,7 @@ public class GameDetailsActivity extends AppCompatActivity {
         mTeam3TextView = (TextView)findViewById(R.id.gameTeam3Text);
         mTeam4TextView = (TextView)findViewById(R.id.gameTeam4Text);
         mTeam5TextView = (TextView)findViewById(R.id.gameTeam5Text);
-       
+
 
         Intent intent = getIntent();
         detailGameName = intent.getStringExtra("GameName");
