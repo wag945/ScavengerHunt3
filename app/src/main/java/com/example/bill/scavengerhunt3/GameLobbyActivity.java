@@ -141,7 +141,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
     }
     @Override
     public void onItemClick (View view,int position){
-//        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Game selectedGame = adapter.getItem(position);
         Toast.makeText(this,selectedGame.getGameName()+ " was selected",Toast.LENGTH_LONG).show();
         //Need to start the game details activity that will have all of the game details, join game, and start game buttons

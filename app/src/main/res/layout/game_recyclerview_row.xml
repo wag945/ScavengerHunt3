@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -21,43 +22,59 @@
             <ImageView
                 android:id="@+id/imageViewGame"
                 android:layout_width="99dp"
-                android:layout_height="78dp"
+                android:layout_height="75dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/lightlightPurple"
                 android:src="@drawable/scavenger_hunt_image"
                 android:contentDescription="@string/image_view_description" />
 
-            <TextView
-                android:id="@+id/gameId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/imageViewGame"
-                android:layout_marginRight="16dp"
-                android:textSize="20sp"
-                android:textColor="@color/light_blue"/>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/gameId"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_blue"/>
 
-            <TextView
-                android:id="@+id/numTeams"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/gameId"
-                android:layout_marginRight="16dp"
-                android:textSize="20sp"
-                android:textColor="@color/light_blue"/>
+                <TextView
+                    android:id="@+id/numTeams"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gameId"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_blue"/>
 
-            <TextView
-                android:id="@+id/gameStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/numTeams"
-                android:layout_marginRight="16dp"
-                android:textSize="20sp"
-                android:textColor="@color/light_blue"/>
-
+                <TextView
+                    android:id="@+id/gameStatus"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/numTeams"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_blue"/>
+            </android.support.constraint.ConstraintLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -54,6 +54,7 @@ public class Game {
         this.team3 = "";
         this.team4 = "";
         this.team5 = "";
+        this.timerView = "00:00";
     }
 
     public void setGameName(String gameName) {mGameName = gameName;}
