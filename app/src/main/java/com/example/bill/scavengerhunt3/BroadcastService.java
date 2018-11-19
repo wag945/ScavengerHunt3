@@ -9,7 +9,7 @@ import android.util.Log;
 public class BroadcastService extends Service {
     private final static String TAG = "BroadcastService";
 
-    public static final String COUNTDOWN_BR = "com.example.bill.gametimertest.countdown_br";
+    public static final String COUNTDOWN_BR = "com.example.bill.scavengerhunt3.countdown_br";
     Intent bi = new Intent(COUNTDOWN_BR);
 
     CountDownTimer cdt = null;
