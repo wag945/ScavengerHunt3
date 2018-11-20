@@ -73,7 +73,7 @@ public class GameDetailsActivity extends AppCompatActivity {
 
 
                 Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
-               // myIntent.putExtra("gameObject", game);
+                myIntent.putExtra("gameName", detailGameName);
                 startActivity(myIntent);
 
             }

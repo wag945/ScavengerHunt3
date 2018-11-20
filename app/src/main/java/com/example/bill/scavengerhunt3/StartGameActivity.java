@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,8 +18,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,17 +48,15 @@ public class StartGameActivity extends AppCompatActivity {
     private FloatingActionButton mSave;
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
     private Game mGame;
+    private String gameName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference gamesRef = database.getReference("Games");
-
-
 
 
         itemButton1 = findViewById(R.id.itemButton1);
@@ -64,8 +66,36 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton5 = findViewById(R.id.itemButton5);
         CameraExcutor = new CameraExecutor();
 
-        //setting the names of hte items on the buttons
 
+
+        gameName = getIntent().getStringExtra("gameName");
+
+        //getting the game from the database
+        DatabaseReference gamesRef = database.getReference("Games");
+
+        gamesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot gameSnapshot: dataSnapshot.getChildren()) {
+                    String name = gameSnapshot.child("gameName").getValue(String.class);
+                    System.out.println("ZEREGA gameSnapshot Gamename: " + name);
+                    System.out.println("ZEREGA gameName from Intent: " + gameName);
+                    if (name.equals(gameName)){
+                        //String team1 = teamSnapshot.child("team1").getValue(String.class);
+                        itemButton1.setText(gameSnapshot.child("scavengeList").child("0").child("name").getValue(String.class));
+                        itemButton2.setText(gameSnapshot.child("scavengeList").child("1").child("name").getValue(String.class));
+                        itemButton3.setText(gameSnapshot.child("scavengeList").child("2").child("name").getValue(String.class));
+                        itemButton4.setText(gameSnapshot.child("scavengeList").child("3").child("name").getValue(String.class));
+                        itemButton5.setText(gameSnapshot.child("scavengeList").child("4").child("name").getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 //        itemButton1.setText(scavengeItems.get(0).toString());
