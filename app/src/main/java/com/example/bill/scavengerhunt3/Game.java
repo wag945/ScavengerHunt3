@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Vector;
 import java.util.Timer;
 import java.util.TimerTask;
 
+//have to make this object serializable to pass between different activities
 public class Game {
     private String mGameName;
     private String team1;
@@ -21,19 +23,21 @@ public class Game {
     private String team5;
     //Replace this with the real ScavengedItem class
     private Vector<Integer> mScavengedItems;
-    private Timer mTimer;
+
     private String timerView;
+    private int id;
+
 
     //using a CountDownTimer that comes with android
-    private CountDownTimer mGameTimer;
+   // private CountDownTimer mGameTimer;
     //Need a timer task to run the timer
 
-    private String[] scavengeItemsBank = new String[]{"Red Sign", "Yellow Sign", "2 Right White Shoes", "2 Left Black Shoes",
-            "Animal Statue", "Person Statue", "Flag", "Green Ball", "A Clock", "Person in Uniform", "Out of State License Plate",
-            "A Book"};
+    private String[] scavengeItemsBank = new String[]{"Red Sign", "Yellow Sign", "2 Right White Shoes",
+            "2 Left Black Shoes", "Animal Statue", "Person Statue", "Flag", "Green Ball", "Clock",
+            "Person in Uniform", "Out of State License Plate", "Book", "Waterbottle", "Mug", "Computer"};
     //creating a copy of the scavenge bank so that items can be removed as they are selected
     private List<String> scavengeItemsBankList = new ArrayList<>(Arrays.asList(scavengeItemsBank));
-    private ArrayList<ScavengeItem> mScavengeList;
+    private ArrayList<ScavengeItem> mScavengeList = new ArrayList<ScavengeItem>();
 
     enum GameState {
         NOT_STARTED,
@@ -45,6 +49,14 @@ public class Game {
     private static final int mMaxTeams = 5;
     private static final int mMaxScavengeItems = 5;
 
+    public ArrayList<ScavengeItem> getScavengeList() {
+        return mScavengeList;
+    }
+
+    public void setScavengeList(ArrayList<ScavengeItem> scavengeList) {
+        mScavengeList = scavengeList;
+    }
+
     public Game(String gameName) {
         mGameName = gameName;
         mGameState = GameState.NOT_STARTED;
@@ -52,9 +64,12 @@ public class Game {
         this.team1 = "";
         this.team2 = "";
         this.team3 = "";
+
         this.team4 = "";
         this.team5 = "";
         this.timerView = "00:00";
+        this.mScavengeList = createScavengeList();
+
     }
 
     public void setGameName(String gameName) {mGameName = gameName;}
@@ -84,6 +99,13 @@ public class Game {
         teamIndex++;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getTeam1() {
         return team1;
     }
@@ -133,13 +155,18 @@ public class Game {
     }
 
     public void startGame() {
-        mTimer = new Timer();
+        //mTimer = new Timer();
 
         //Start a timer to run immediately and repeat every second
-        startTimer();
+       // startTimer();
         //mTimer.schedule(mGameTimer,0,1000);
         mGameState = GameState.IN_PROGRESS;
 
+
+    }
+
+    public ArrayList<ScavengeItem> createScavengeList(){
+        ArrayList<ScavengeItem> tempScavengeList = new ArrayList<ScavengeItem>();
         //create 5 Scavenge items for the teams to find
         for(int i = 0; i < mMaxScavengeItems; i++){
             Random random = new Random();
@@ -148,12 +175,13 @@ public class Game {
             //removing scavenge item from bank list copy to prevent doubles of same item
             scavengeItemsBankList.remove(index);
             ScavengeItem scavengeItem = new ScavengeItem(scavengeItemString);
-            mScavengeList.add(i, scavengeItem);
+            tempScavengeList.add(i, scavengeItem);
         }
+        return tempScavengeList;
     }
 
     public void stopGame() {
-        mGameTimer.cancel();
+      //  mGameTimer.cancel();
         mGameState = GameState.ENDED;
     }
 
@@ -168,26 +196,36 @@ public class Game {
 
     }
 
-    public void startTimer(){
-
-        //new game timer set to 15 min, 60 sec * 15 = 900 x milliseconds, interval set to 1 second, 1000 miliseconds
-
-        mGameTimer = new CountDownTimer(900 * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                //setting the timer to be viewed in minute:seconds
-                timerView = millisUntilFinished / 1000 + " : " + millisUntilFinished % 60;
-            }
-
-            @Override
-            public void onFinish() {
-                timerView = "Out of Time!";
-            }
-        };
-    }
+//    public void startTimer(){
+//
+//        //new game timer set to 15 min, 60 sec * 15 = 900 x milliseconds, interval set to 1 second, 1000 miliseconds
+//
+//        mGameTimer = new CountDownTimer(900 * 1000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                //setting the timer to be viewed in minute:seconds
+//                timerView = millisUntilFinished / 1000 + " : " + millisUntilFinished % 60;
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                timerView = "Out of Time!";
+//            }
+//        };
+//    }
 
     public String getTimerView() {
         return timerView;
+    }
+
+    @Override
+    public String toString() {
+        String fullScavengeList = new String();
+
+        for(ScavengeItem si : mScavengeList){
+            fullScavengeList += si.getName() + ", ";
+        }
+        return fullScavengeList;
     }
 }
 

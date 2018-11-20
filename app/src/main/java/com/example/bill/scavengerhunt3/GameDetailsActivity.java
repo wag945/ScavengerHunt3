@@ -60,8 +60,21 @@ public class GameDetailsActivity extends AppCompatActivity {
         mStartGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Games");
+
+
+                Log.d("ZEREGA", "onClick: working ");
             //need to have this point to the current game activity
-                startActivity(new Intent(GameDetailsActivity.this, StartGameActivity.class));
+
+
+
+
+
+
+                Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
+               // myIntent.putExtra("gameObject", game);
+                startActivity(myIntent);
 
             }
         });
