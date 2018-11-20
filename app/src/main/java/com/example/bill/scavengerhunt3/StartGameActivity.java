@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +38,7 @@ public class StartGameActivity extends AppCompatActivity {
     private android.widget.Button itemButton4;
     private android.widget.Button itemButton5;
     private android.widget.TextView textView;
-    private android.widget.TextView textView2;
+    private android.widget.TextView timerText;
     private android.widget.TextView textView3;
     private CameraExecutor CameraExcutor;
     private ImageView mImageView;
@@ -49,7 +50,6 @@ public class StartGameActivity extends AppCompatActivity {
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
     private Game mGame;
     private String gameName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +109,8 @@ public class StartGameActivity extends AppCompatActivity {
 
         mImageView.setVisibility(View.GONE);
 
+        timerText = (TextView) findViewById(R.id.textView2);
+        timerText.setText("00:00");
 
 
 
@@ -207,100 +209,92 @@ public class StartGameActivity extends AppCompatActivity {
         });
     }
 
-
-        @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-        @NonNull int[] grantResults){
-            // Called when you request permission to read and write to external storage
-            switch (requestCode) {
-                case REQUEST_STORAGE_PERMISSION: {
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        // If you get permission, launch the camera
-                        launchCamera();
-                    } else {
-                        // If you do not get permission, show a Toast
-                        Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
-                    }
-                    break;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+    @NonNull int[] grantResults){
+        // Called when you request permission to read and write to external storage
+        switch (requestCode) {
+            case REQUEST_STORAGE_PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // If you get permission, launch the camera
+                    launchCamera();
+                } else {
+                    // If you do not get permission, show a Toast
+                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 }
-            }
-
-
-        }
-
-
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            // If the image capture activity was called and was successful
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                // Process the image and set it to the TextView
-                processAndSetImage();
-            } else {
-
-                // Otherwise, delete the temporary image file
-                BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+                break;
             }
         }
-
-
-         //* Creates a temporary image file and captures a picture to store in it.
-
-        private void launchCamera () {
-
-            // Create the capture image intent
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            // Ensure that there's a camera activity to handle the intent
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                // Create the temporary File where the photo should go
-                File photoFile = null;
-                try {
-                    photoFile = BitmapUtils.createTempImageFile(this);
-                } catch (IOException ex) {
-                    // Error occurred while creating the File
-                    ex.printStackTrace();
-                }
-                // Continue only if the File was successfully created
-                if (photoFile != null) {
-
-                    // Get the path of the temporary file
-                    mTempPhotoPath = photoFile.getAbsolutePath();
-
-                    // Get the content URI for the image file
-                    Uri photoURI = FileProvider.getUriForFile(this,
-                            FILE_PROVIDER_AUTHORITY,
-                            photoFile);
-
-                    // Add the URI so the camera can store the image
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-
-                    // Launch the camera activity
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
-        }
-
-
-        /**
-         * Method for processing the captured image and setting it to the TextView.
-         */
-
-        private void processAndSetImage () {
-
-            // Toggle Visibility of the views
-
-            mImageView.setVisibility(View.VISIBLE);
-
-
-            mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
-
-
-            // Set the new bitmap to the ImageView
-            mImageView.setImageBitmap(mResultsBitmap);
-        }
-
-
     }
+
+    @Override
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        // If the image capture activity was called and was successful
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // Process the image and set it to the TextView
+            processAndSetImage();
+        } else {
+
+            // Otherwise, delete the temporary image file
+            BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+        }
+    }
+
+     //* Creates a temporary image file and captures a picture to store in it.
+
+    private void launchCamera () {
+
+        // Create the capture image intent
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the temporary File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = BitmapUtils.createTempImageFile(this);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+
+                // Get the path of the temporary file
+                mTempPhotoPath = photoFile.getAbsolutePath();
+
+                // Get the content URI for the image file
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        FILE_PROVIDER_AUTHORITY,
+                        photoFile);
+
+                // Add the URI so the camera can store the image
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+                // Launch the camera activity
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    /**
+     * Method for processing the captured image and setting it to the TextView.
+     */
+
+    private void processAndSetImage () {
+
+        // Toggle Visibility of the views
+
+        mImageView.setVisibility(View.VISIBLE);
+
+
+        mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
+
+
+        // Set the new bitmap to the ImageView
+        mImageView.setImageBitmap(mResultsBitmap);
+    }
+}
 
 
