@@ -1,7 +1,9 @@
 package com.example.bill.scavengerhunt3;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import android.content.BroadcastReceiver;
 
 public class StartGameActivity extends AppCompatActivity {
 
@@ -45,6 +49,7 @@ public class StartGameActivity extends AppCompatActivity {
     private FloatingActionButton mSave;
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
     private Game mGame;
+    private DatabaseReference gamesRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +57,7 @@ public class StartGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_game);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference gamesRef = database.getReference("Games");
-
-
-
+        gamesRef = database.getReference("Games");
 
         itemButton1 = findViewById(R.id.itemButton1);
         itemButton2 = findViewById(R.id.itemButton2);
@@ -64,16 +66,6 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton5 = findViewById(R.id.itemButton5);
         CameraExcutor = new CameraExecutor();
 
-        //setting the names of hte items on the buttons
-
-
-
-//        itemButton1.setText(scavengeItems.get(0).toString());
-//        itemButton2.setText(scavengeItems.get(1).toString());
-//        itemButton3.setText(scavengeItems.get(2).toString());
-//        itemButton4.setText(scavengeItems.get(3).toString());
-//        itemButton5.setText(scavengeItems.get(4).toString());
-
         mImageView = findViewById(R.id.imageView);
         mSave = findViewById(R.id.save);
 
@@ -81,8 +73,6 @@ public class StartGameActivity extends AppCompatActivity {
 
         timerText = (TextView) findViewById(R.id.textView2);
         timerText.setText("00:00");
-
-
 
         itemButton1.setOnClickListener(v -> {
             // Check for the external storage permission
@@ -258,12 +248,74 @@ public class StartGameActivity extends AppCompatActivity {
 
         mImageView.setVisibility(View.VISIBLE);
 
-
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
-
 
         // Set the new bitmap to the ImageView
         mImageView.setImageBitmap(mResultsBitmap);
+    }
+
+    private BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent);
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(br, new IntentFilter(BroadcastService.COUNTDOWN_BR));
+        Log.i("StartGameActivity", "Registered broacast receiver");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(br);
+        Log.i("StartGameActivity", "Unregistered broacast receiver");
+    }
+
+    @Override
+    public void onStop() {
+        try {
+            unregisterReceiver(br);
+        } catch (Exception e) {
+        }
+        super.onStop();
+    }
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, BroadcastService.class));
+        Log.i("StartGameActivity", "Stopped service");
+        super.onDestroy();
+    }
+
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            long millisUntilFinished = intent.getLongExtra("countdown", 0);
+            Log.i("StartGameActivity", "Countdown seconds remaining: " +  millisUntilFinished / 1000);
+            long secondsRemaining = millisUntilFinished/1000;
+            long minutes = 0;
+            long seconds = 0;
+            if (secondsRemaining >= 60)
+            {
+                minutes = secondsRemaining / 60;
+                seconds = secondsRemaining % 60;
+            }
+
+            String timerTextStr= "";
+
+            if (seconds < 10) {
+                timerTextStr = Long.toString(minutes)+":0"+Long.toString(seconds);
+                timerText.setText(timerTextStr);
+            }
+            else {
+                timerTextStr = Long.toString(minutes)+":"+Long.toString(seconds);
+                timerText.setText(timerTextStr);
+            }
+
+            gamesRef.child("gameTimer").setValue(timerTextStr);
+        }
     }
 }
 
