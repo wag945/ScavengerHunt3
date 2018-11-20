@@ -62,7 +62,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+//        if(currentUser != null) {
+//            Toast.makeText(MainActivity.this, "Current user: " + currentUser.getEmail(),
+//                    Toast.LENGTH_LONG).show();
+//            Intent myIntent = new Intent(MainActivity.this, GameLobbyActivity.class);
+//            MainActivity.this.startActivity(myIntent);
+//
+//        }
     }
 
 

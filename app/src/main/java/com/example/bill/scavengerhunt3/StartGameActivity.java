@@ -18,8 +18,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StartGameActivity extends AppCompatActivity {
 
@@ -39,11 +44,17 @@ public class StartGameActivity extends AppCompatActivity {
     private static final int REQUEST_STORAGE_PERMISSION = 1;
     private FloatingActionButton mSave;
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
+    private Game mGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference gamesRef = database.getReference("Games");
+
+
 
 
         itemButton1 = findViewById(R.id.itemButton1);
@@ -53,6 +64,16 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton5 = findViewById(R.id.itemButton5);
         CameraExcutor = new CameraExecutor();
 
+        //setting the names of hte items on the buttons
+
+
+
+//        itemButton1.setText(scavengeItems.get(0).toString());
+//        itemButton2.setText(scavengeItems.get(1).toString());
+//        itemButton3.setText(scavengeItems.get(2).toString());
+//        itemButton4.setText(scavengeItems.get(3).toString());
+//        itemButton5.setText(scavengeItems.get(4).toString());
+
         mImageView = findViewById(R.id.imageView);
         mSave = findViewById(R.id.save);
 
@@ -60,6 +81,8 @@ public class StartGameActivity extends AppCompatActivity {
 
         timerText = (TextView) findViewById(R.id.textView2);
         timerText.setText("00:00");
+
+
 
         itemButton1.setOnClickListener(v -> {
             // Check for the external storage permission

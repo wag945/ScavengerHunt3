@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +27,9 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
     GameRecyclerViewAdapter adapter;
     private Button mAddGameButton;
     private Button mTeamLobbyButton;
+    private Button mStartButton;
+    private FirebaseAuth mAuth;
+
 
 
     @Override
