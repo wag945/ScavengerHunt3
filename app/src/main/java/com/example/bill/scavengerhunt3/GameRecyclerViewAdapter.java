@@ -15,9 +15,11 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
     private ArrayList<Game> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context mContext;
 
     // data is passed into the constructor
     GameRecyclerViewAdapter(Context context, ArrayList<Game> data) {
+        this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -36,6 +38,15 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         holder.mGameIdTextView.setText("Name: "+game.getGameName());
         holder.mNumTeamsTextView.setText("Num teams: "+game.getNumTeams());
         holder.mGameStatusTextView.setText("Status: "+game.getGameStatus().toString());
+        if (game.getGameStatus().toString().equals("NOT_STARTED")) {
+            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameNotStartedColor));
+        }
+        else if (game.getGameStatus().toString().equals("IN_PROGRESS")) {
+            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStartedColor));
+        }
+        else {
+            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStoppedColor));
+        }
     }
 
     // total number of rows

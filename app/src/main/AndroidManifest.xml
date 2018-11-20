@@ -22,8 +22,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>/>
+                android:resource="@xml/file_paths" />
+            />
         </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,12 +38,13 @@
         <activity android:name=".AddTeamActivity" />
         <activity android:name=".AddGameActivity" />
         <activity android:name=".GameDetailsActivity" />
-
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".StartGameActivity" />
 
-        <activity android:name=".StartGameActivity"/>
-
-
+        <service
+            android:name=".BroadcastService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

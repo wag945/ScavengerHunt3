@@ -91,6 +91,20 @@ public class GameDetailsActivity extends AppCompatActivity {
                         Log.d("GameDetailsActivity","found match for "+detailGameName);
                         mGameNameTextView.setText(name);
                         mGameStatusTextView.setText(teamSnapshot.child("gameStatus").getValue(String.class));
+                        //Set visibility of Join Game button
+                        if (teamSnapshot.child("gameStatus").getValue().toString().equals("IN_PROGRESS")) {
+                            mJoinGameButton.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            mJoinGameButton.setVisibility(View.INVISIBLE);
+                        }
+                        //Set visibility of Start Game button
+                        if (teamSnapshot.child("gameStatus").getValue().toString().equals("STARTED")) {
+                            mStartGameButton.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            mStartGameButton.setVisibility(View.VISIBLE);
+                        }
                         String team1 = teamSnapshot.child("team1").getValue(String.class);
                         mTeam1TextView.setText(team1);
                         String team2 = teamSnapshot.child("team2").getValue(String.class);
