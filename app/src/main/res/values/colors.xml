@@ -15,4 +15,7 @@
     <color name="mediumPurple">#8E24AA</color>
     <color name="lightPurple">#AB47BC</color>
     <color name="lightlightPurple">#F3E5F5</color>
+    <color name="gameStoppedColor">#B71C1C</color>
+    <color name="gameNotStartedColor">#F57F17</color>
+    <color name="gameStartedColor">#1B5E20</color>
 </resources>
