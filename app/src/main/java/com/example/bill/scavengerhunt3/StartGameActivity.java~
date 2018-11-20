@@ -53,16 +53,25 @@ public class StartGameActivity extends AppCompatActivity {
     private FloatingActionButton mSave;
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
     private Game mGame;
+<<<<<<< HEAD
     private DatabaseReference gamesRef;
+=======
     private String gameName;
+>>>>>>> 7f6576623f666cad39cec06b6179c9a8be522ffe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+<<<<<<< HEAD
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         gamesRef = database.getReference("Games");
+=======
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+>>>>>>> 7f6576623f666cad39cec06b6179c9a8be522ffe
 
         itemButton1 = findViewById(R.id.itemButton1);
         itemButton2 = findViewById(R.id.itemButton2);
@@ -70,6 +79,10 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton4 = findViewById(R.id.itemButton4);
         itemButton5 = findViewById(R.id.itemButton5);
         CameraExcutor = new CameraExecutor();
+
+<<<<<<< HEAD
+=======
+
 
         gameName = getIntent().getStringExtra("gameName");
 
@@ -83,7 +96,7 @@ public class StartGameActivity extends AppCompatActivity {
                     String name = gameSnapshot.child("gameName").getValue(String.class);
                     System.out.println("ZEREGA gameSnapshot Gamename: " + name);
                     System.out.println("ZEREGA gameName from Intent: " + gameName);
-                    if (name != null && name.equals(gameName)){
+                    if (name.equals(gameName)){
                         //String team1 = teamSnapshot.child("team1").getValue(String.class);
                         itemButton1.setText(gameSnapshot.child("scavengeList").child("0").child("name").getValue(String.class));
                         itemButton2.setText(gameSnapshot.child("scavengeList").child("1").child("name").getValue(String.class));
@@ -107,6 +120,7 @@ public class StartGameActivity extends AppCompatActivity {
 //        itemButton4.setText(scavengeItems.get(3).toString());
 //        itemButton5.setText(scavengeItems.get(4).toString());
 
+>>>>>>> 7f6576623f666cad39cec06b6179c9a8be522ffe
         mImageView = findViewById(R.id.imageView);
         mSave = findViewById(R.id.save);
 

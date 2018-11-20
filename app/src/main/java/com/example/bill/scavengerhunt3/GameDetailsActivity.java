@@ -76,7 +76,7 @@ public class GameDetailsActivity extends AppCompatActivity {
                 Log.i("GameDetailsActivity", "Started service");
 
                 Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
-               // myIntent.putExtra("gameObject", game);
+                myIntent.putExtra("gameName", detailGameName);
                 startActivity(myIntent);
 
             }
