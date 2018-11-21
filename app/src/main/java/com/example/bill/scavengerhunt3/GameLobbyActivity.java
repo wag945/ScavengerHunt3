@@ -81,21 +81,21 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
                         String team5 = teamSnapshot.child("team5").getValue(String.class);
                         Log.d("GameLobbyActivity", "team5 from snapshot: " + team5);
                         Game game = new Game(name);
-                        if (team1.length() > 0) {
-                            game.addTeam(team1);
-                        }
-                        if (team2.length() > 0) {
-                            game.addTeam(team2);
-                        }
-                        if (team3.length() > 0) {
-                            game.addTeam(team3);
-                        }
-                        if (team4.length() > 0) {
-                            game.addTeam(team4);
-                        }
-                        if (team5.length() > 0) {
-                            game.addTeam(team5);
-                        }
+//                        if (team1.length() > 0) {
+//                            game.addTeam(team1);
+//                        }
+//                        if (team2.length() > 0) {
+//                            game.addTeam(team2);
+//                        }
+//                        if (team3.length() > 0) {
+//                            game.addTeam(team3);
+//                        }
+//                        if (team4.length() > 0) {
+//                            game.addTeam(team4);
+//                        }
+//                        if (team5.length() > 0) {
+//                            game.addTeam(team5);
+//                        }
                         games.add(game);
                     }
                 }

@@ -50,6 +50,10 @@ public class Game {
         mScavengeList = scavengeList;
     }
 
+    public ArrayList<Team> getTeamList() {
+        return mTeamList;
+    }
+
     public Game(String gameName) {
         mGameName = gameName;
         mGameState = GameState.NOT_STARTED;
@@ -64,6 +68,12 @@ public class Game {
         this.mScavengeList = createScavengeList();
         this.mTeamList = createTeamList();
 
+
+    }
+
+    public void setTeamList(ArrayList<Team> teamList) {
+        mTeamList = teamList;
+        teamIndex = mTeamList.size();
     }
 
     public void setGameName(String gameName) {mGameName = gameName;}
@@ -72,24 +82,30 @@ public class Game {
         return mGameName;
     }
 
-    public void addTeam(String teamName) {
-        switch (teamIndex) {
-            case 1:
-                team1 = teamName;
-                break;
-            case 2:
-                team2 = teamName;
-                break;
-            case 3:
-                team3 = teamName;
-                break;
-            case 4:
-                team4 = teamName;
-                break;
-            default:
-                team5 = teamName;
-                break;
-        }
+    //commenting out to convert teams from strings to Team object
+//    public void addTeam(String teamName) {
+//        switch (teamIndex) {
+//            case 1:
+//                team1 = teamName;
+//                break;
+//            case 2:
+//                team2 = teamName;
+//                break;
+//            case 3:
+//                team3 = teamName;
+//                break;
+//            case 4:
+//                team4 = teamName;
+//                break;
+//            default:
+//                team5 = teamName;
+//                break;
+//        }
+//        teamIndex++;
+//    }
+
+    public void addTeam(Team team){
+        mTeamList.add(team);
         teamIndex++;
     }
 

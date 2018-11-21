@@ -35,7 +35,17 @@ public class TeamLobbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_lobby);
         listViewTeams = (ListView) findViewById(R.id.list_view_teams);
 
-        mAddTeamButton = (Button)findViewById(R.id.addTeam);
+        mAddTeamButton = (Button)findViewById(R.id.addTeamButton);
+
+        //adding a way to get to the add team activity
+        mAddTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(TeamLobbyActivity.this, AddTeamActivity.class);
+                TeamLobbyActivity.this.startActivity(myIntent);
+            }
+        });
+
         mGameLobbyButton = (Button) findViewById(R.id.gameLobbyButton);
         mGameLobbyButton.setOnClickListener(new View.OnClickListener() {
             @Override

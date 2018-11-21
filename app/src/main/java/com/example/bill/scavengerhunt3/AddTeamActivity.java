@@ -55,7 +55,7 @@ public class AddTeamActivity extends AppCompatActivity {
                 team.addPlayer(mPlayer2.getText().toString());
                 team.addPlayer(mPlayer3.getText().toString());
                 team.addPlayer(mPlayer4.getText().toString());
-                team.addPlayer(mPlayer5.getText(jj).toString());
+                team.addPlayer(mPlayer5.getText().toString());
                 team.setRecord(mRecord.getText().toString());
                 DatabaseReference newRef = mDatabase.child("Teams").push();
                 Log.d("AddTeamActivity","adding team "+teamName);
