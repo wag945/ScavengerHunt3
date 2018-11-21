@@ -18,6 +18,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class StartGameActivity extends AppCompatActivity {
     private Game mGame;
     private DatabaseReference gamesRef;
     private String gameName;
+    private Button leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +189,18 @@ public class StartGameActivity extends AppCompatActivity {
                 // Launch the camera if the permission exists
                 launchCamera();
             }
+        });
+
+        leaderboard = (Button) findViewById(R.id.leaderboardButton);
+
+        leaderboard.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View view){
+            Intent myIntent = new Intent(StartGameActivity.this, LeaderboardActivity.class);
+            myIntent.putExtra("gameName", gameName);
+            StartGameActivity.this.startActivity(myIntent);
+
+           }
         });
 
 

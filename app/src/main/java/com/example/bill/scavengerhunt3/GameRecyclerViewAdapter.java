@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerViewAdapter.ViewHolder> {
@@ -62,11 +63,15 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         TextView mNumTeamsTextView;
         TextView mGameStatusTextView;
 
+
+
         ViewHolder(View itemView) {
             super(itemView);
             mGameIdTextView = (TextView)itemView.findViewById(R.id.gameId);
             mNumTeamsTextView = (TextView)itemView.findViewById(R.id.numTeams);
             mGameStatusTextView = (TextView)itemView.findViewById(R.id.gameStatus);
+
+
             itemView.setOnClickListener(this);
         }
 

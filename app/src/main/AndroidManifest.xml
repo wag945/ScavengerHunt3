@@ -45,6 +45,8 @@
             android:name=".BroadcastService"
             android:enabled="true"
             android:exported="false" />
+
+        <activity android:name=".LeaderboardActivity"></activity>
     </application>
 
 </manifest>
