@@ -63,15 +63,6 @@ public class GameDetailsActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("Games");
 
-
-                Log.d("ZEREGA", "onClick: working ");
-            //need to have this point to the current game activity
-
-
-
-
-
-
                 startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
                 Log.i("GameDetailsActivity", "Started service");
 

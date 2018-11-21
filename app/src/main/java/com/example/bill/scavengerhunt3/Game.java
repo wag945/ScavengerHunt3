@@ -21,23 +21,16 @@ public class Game {
     private String team3;
     private String team4;
     private String team5;
-    //Replace this with the real ScavengedItem class
-    private Vector<Integer> mScavengedItems;
-
     private String timerView;
     private int id;
 
-
-    //using a CountDownTimer that comes with android
-   // private CountDownTimer mGameTimer;
-    //Need a timer task to run the timer
-
-    private String[] scavengeItemsBank = new String[]{"Red Sign", "Yellow Sign", "2 Right White Shoes",
-            "2 Left Black Shoes", "Animal Statue", "Person Statue", "Flag", "Green Ball", "Clock",
-            "Person in Uniform", "Out of State License Plate", "Book", "Waterbottle", "Mug", "Computer"};
+    private String[] scavengeItemsBank = new String[]{"Red Sign", "Yellow Sign", "2 R Shoes",
+            "2 L Shoes", "Animal Statue", "Person Statue", "Flag", "Green Ball", "Clock",
+            "Teacher", "Notebook", "Book", "Waterbottle", "Mug", "Computer"};
     //creating a copy of the scavenge bank so that items can be removed as they are selected
     private List<String> scavengeItemsBankList = new ArrayList<>(Arrays.asList(scavengeItemsBank));
     private ArrayList<ScavengeItem> mScavengeList = new ArrayList<ScavengeItem>();
+    private ArrayList<Team> mTeamList = new ArrayList<Team>();
 
     enum GameState {
         NOT_STARTED,
@@ -69,6 +62,7 @@ public class Game {
         this.team5 = "";
         this.timerView = "00:00";
         this.mScavengeList = createScavengeList();
+        this.mTeamList = createTeamList();
 
     }
 
@@ -146,14 +140,6 @@ public class Game {
         return Integer.toString(numTeams);
     }
 
-    public void addScavengedItem(int item) {
-        mScavengedItems.add(item);
-    }
-
-    public Vector<Integer> getScavengedItems() {
-        return mScavengedItems;
-    }
-
     public void startGame() {
         //mTimer = new Timer();
 
@@ -178,6 +164,14 @@ public class Game {
             tempScavengeList.add(i, scavengeItem);
         }
         return tempScavengeList;
+    }
+
+    public ArrayList<Team> createTeamList(){
+        ArrayList<Team> tempTeamList = new ArrayList<Team>();
+
+
+        return tempTeamList;
+
     }
 
     public void stopGame() {

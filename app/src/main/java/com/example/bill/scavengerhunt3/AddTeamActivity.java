@@ -55,10 +55,10 @@ public class AddTeamActivity extends AppCompatActivity {
                 team.addPlayer(mPlayer2.getText().toString());
                 team.addPlayer(mPlayer3.getText().toString());
                 team.addPlayer(mPlayer4.getText().toString());
-                team.addPlayer(mPlayer5.getText().toString());
+                team.addPlayer(mPlayer5.getText(jj).toString());
                 team.setRecord(mRecord.getText().toString());
                 DatabaseReference newRef = mDatabase.child("Teams").push();
-                Log.d("AddTeamActivity mAddTeam on click","adding team "+teamName);
+                Log.d("AddTeamActivity","adding team "+teamName);
                 newRef.setValue(team);
                 Intent myIntent = new Intent(AddTeamActivity.this, TeamLobbyActivity.class);
                 AddTeamActivity.this.startActivity(myIntent);

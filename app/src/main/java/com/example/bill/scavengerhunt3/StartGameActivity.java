@@ -122,11 +122,6 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
 
-//        itemButton1.setText(scavengeItems.get(0).toString());
-//        itemButton2.setText(scavengeItems.get(1).toString());
-//        itemButton3.setText(scavengeItems.get(2).toString());
-//        itemButton4.setText(scavengeItems.get(3).toString());
-//        itemButton5.setText(scavengeItems.get(4).toString());
 
 
 
