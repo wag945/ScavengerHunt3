@@ -12,6 +12,15 @@ public class Team {
     private String player5;
     private String record;
     private int playerIndex;
+    private ArrayList<ScavengeItem> teamScavengeList;
+
+    public ArrayList<ScavengeItem> getTeamScavengeList() {
+        return teamScavengeList;
+    }
+
+    public void setTeamScavengeList(ArrayList<ScavengeItem> teamScavengeList) {
+        this.teamScavengeList = teamScavengeList;
+    }
 
     public String getName() {
         return name;
@@ -96,6 +105,9 @@ public class Team {
         return Integer.toString(numPlayers);
     }
 
+
+
+    //Different team constructors to deal with different inputs, should help when teams not picked
     Team() {
         this.name = "";
         this.record = "";
@@ -105,6 +117,7 @@ public class Team {
         player4 = "";
         player5 = "";
         playerIndex = 1;
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
 
     Team(String name,
@@ -121,6 +134,7 @@ public class Team {
         this.player4 = player4;
         this.player5 = player5;
         this.record = record;
+        teamScavengeList = new ArrayList<ScavengeItem>();
         Log.d("MyFirstFireBaseApp","new team name = "+ this.name);
     }
 
@@ -138,6 +152,7 @@ public class Team {
         this.player4 = player4;
         this.player5 = player5;
         this.record = "";
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
 
     Team(String name,
@@ -151,6 +166,7 @@ public class Team {
         this.player4 = "";
         this.player5 = "";
         this.record = "";
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
 
     Team(String name,
@@ -166,6 +182,7 @@ public class Team {
         this.player4 = player4;
         this.player5 = "";
         this.record = "";
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
     Team(String name,
          String player1,
@@ -178,6 +195,7 @@ public class Team {
         this.player4 = "";
         this.player5 = "";
         this.record = "";
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
     Team(String name,
          String player1
@@ -189,5 +207,6 @@ public class Team {
         this.player4 = "";
         this.player5 = "";
         this.record = "";
+        teamScavengeList = new ArrayList<ScavengeItem>();
     }
 }

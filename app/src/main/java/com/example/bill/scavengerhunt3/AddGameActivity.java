@@ -111,6 +111,10 @@ public class AddGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String gameName = mGameName.getText().toString();
                 Game game = new Game(gameName);
+
+                for(Team tm : teams){
+                    tm.setTeamScavengeList(game.getScavengeList());
+                }
                 game.setTeamList(teams);
                 //Adding values
 //                game.addTeam(mTeam1.getText().toString());
