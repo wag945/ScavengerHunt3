@@ -16,11 +16,6 @@ import java.util.TimerTask;
 //have to make this object serializable to pass between different activities
 public class Game {
     private String mGameName;
-    private String team1;
-    private String team2;
-    private String team3;
-    private String team4;
-    private String team5;
     private String timerView;
     private int id;
 
@@ -58,12 +53,6 @@ public class Game {
         mGameName = gameName;
         mGameState = GameState.NOT_STARTED;
         teamIndex = 1;
-        this.team1 = "";
-        this.team2 = "";
-        this.team3 = "";
-
-        this.team4 = "";
-        this.team5 = "";
         this.timerView = "00:00";
         this.mScavengeList = createScavengeList();
         this.mTeamList = createTeamList();
@@ -116,44 +105,11 @@ public class Game {
     public void setId(int id) {
         this.id = id;
     }
-    public String getTeam1() {
-        return team1;
-    }
 
-    public String getTeam2() {
-        return team2;
-    }
-
-    public String getTeam3() {
-        return team3;
-    }
-
-    public String getTeam4() {
-        return team4;
-    }
-
-    public String getTeam5() {
-        return team5;
-    }
 
     public String getNumTeams() {
-        int numTeams = 0;
-        if (team1.length() > 0) {
-            numTeams++;
-        }
-        if (team2.length() > 0) {
-            numTeams++;
-        }
-        if (team3.length() > 0) {
-            numTeams++;
-        }
-        if (team4.length() > 0) {
-            numTeams++;
-        }
-        if (team5.length() > 0) {
-            numTeams++;
-        }
-        return Integer.toString(numTeams);
+
+        return Integer.toString(teamIndex);
     }
 
     public void startGame() {
@@ -201,8 +157,7 @@ public class Game {
 
     public void print() {
         Log.d("Game::print",
-                "name: "+mGameName+" Team1: "+this.getTeam1()+" Team2: "+this.getTeam2()
-        +" Team3: "+this.getTeam3()+" Team4: "+this.getTeam4()+" Team5: "+this.getTeam5());
+                "name: "+mGameName+" Team1: "+ mTeamList);
 
     }
 
