@@ -99,15 +99,15 @@ public class GameDetailsActivity extends AppCompatActivity {
                         else {
                             mStartGameButton.setVisibility(View.VISIBLE);
                         }
-                        String team1 = teamSnapshot.child("team1").getValue(String.class);
+                        String team1 = teamSnapshot.child("teamList").child("0").child("name").getValue(String.class);
                         mTeam1TextView.setText(team1);
-                        String team2 = teamSnapshot.child("team2").getValue(String.class);
+                        String team2 = teamSnapshot.child("teamList").child("1").child("name").getValue(String.class);
                         mTeam2TextView.setText(team2);
-                        String team3 = teamSnapshot.child("team3").getValue(String.class);
+                        String team3 = teamSnapshot.child("teamList").child("2").child("name").getValue(String.class);
                         mTeam3TextView.setText(team3);
-                        String team4 = teamSnapshot.child("team4").getValue(String.class);
+                        String team4 = teamSnapshot.child("teamList").child("3").child("name").getValue(String.class);
                         mTeam4TextView.setText(team4);
-                        String team5 = teamSnapshot.child("team5").getValue(String.class);
+                        String team5 = teamSnapshot.child("teamList").child("4").child("name").getValue(String.class);
                         mTeam5TextView.setText(team5);
                     }
                 }
