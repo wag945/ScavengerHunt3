@@ -1,6 +1,7 @@
 package com.example.bill.scavengerhunt3;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,24 +20,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import android.content.BroadcastReceiver;
 
 public class StartGameActivity extends AppCompatActivity {
 
+    private static final int ITEM1 = 1;
+    private static final int ITEM2 = 2;
+    private static final int ITEM3 = 3;
+    private static final int ITEM4 = 4;
+    private static final int ITEM5 = 5;
     private android.widget.Button itemButton1;
     private android.widget.Button itemButton2;
     private android.widget.Button itemButton3;
@@ -46,31 +61,47 @@ public class StartGameActivity extends AppCompatActivity {
     private android.widget.TextView timerText;
     private android.widget.TextView textView3;
     private CameraExecutor CameraExcutor;
-    private ImageView mImageView;
+    private ImageView imageView;
     private Bitmap mResultsBitmap;
     private String mTempPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
+    private static final int CAMERA_REQUEST_CODE = 1;
+    private ProgressDialog mProgressDialog;
     private FloatingActionButton mSave;
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.bill.scavengerhunt3";
     private Game mGame;
     private DatabaseReference gamesRef;
     private String gameName;
     private Button leaderboard;
+    private StorageReference mStorage;
+    private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mStorage = FirebaseStorage.getInstance().getReference();
 
         gamesRef = database.getReference("Games");
+
+        mProgressDialog = new ProgressDialog(this);
 
         itemButton1 = findViewById(R.id.itemButton1);
         itemButton2 = findViewById(R.id.itemButton2);
         itemButton3 = findViewById(R.id.itemButton3);
         itemButton4 = findViewById(R.id.itemButton4);
         itemButton5 = findViewById(R.id.itemButton5);
+
+        checkBox1 = findViewById(R.id.checkBox1);
+        checkBox2 = findViewById(R.id.checkBox2);
+        checkBox3 = findViewById(R.id.checkBox3);
+        checkBox4 = findViewById(R.id.checkBox4);
+        checkBox5 = findViewById(R.id.checkBox5);
+
         CameraExcutor = new CameraExecutor();
 
         gameName = getIntent().getStringExtra("gameName");
@@ -104,10 +135,9 @@ public class StartGameActivity extends AppCompatActivity {
 
 
 
-        mImageView = findViewById(R.id.imageView);
-        mSave = findViewById(R.id.save);
+        imageView = findViewById(R.id.imageView);
+      //  mSave = findViewById(R.id.save);
 
-        mImageView.setVisibility(View.GONE);
 
         timerText = (TextView) findViewById(R.id.textView2);
         timerText.setText("00:00");
@@ -122,9 +152,13 @@ public class StartGameActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_STORAGE_PERMISSION);
-            } else {
+            } else  {
                 // Launch the camera if the permission exists
-                launchCamera();
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(intent, ITEM1);
+
             }
         });
         itemButton2.setOnClickListener(v -> {
@@ -139,8 +173,12 @@ public class StartGameActivity extends AppCompatActivity {
                         REQUEST_STORAGE_PERMISSION);
             } else {
                 // Launch the camera if the permission exists
-                launchCamera();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(intent, ITEM2);
             }
+
+
         });
 
         itemButton3.setOnClickListener(v -> {
@@ -155,7 +193,9 @@ public class StartGameActivity extends AppCompatActivity {
                         REQUEST_STORAGE_PERMISSION);
             } else {
                 // Launch the camera if the permission exists
-                launchCamera();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(intent, ITEM3);
             }
         });
 
@@ -171,7 +211,9 @@ public class StartGameActivity extends AppCompatActivity {
                         REQUEST_STORAGE_PERMISSION);
             } else {
                 // Launch the camera if the permission exists
-                launchCamera();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(intent, ITEM4);
             }
         });
 
@@ -187,7 +229,9 @@ public class StartGameActivity extends AppCompatActivity {
                         REQUEST_STORAGE_PERMISSION);
             } else {
                 // Launch the camera if the permission exists
-                launchCamera();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(intent, ITEM5);
             }
         });
 
@@ -204,7 +248,7 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
 
-        mSave.setOnClickListener((View v) -> {
+  /*      mSave.setOnClickListener((View v) -> {
             CameraExcutor.diskIO().execute(() -> {
                 // Delete the temporary image file
                 BitmapUtils.deleteImageFile(this, mTempPhotoPath);
@@ -217,6 +261,8 @@ public class StartGameActivity extends AppCompatActivity {
             Toast.makeText(this, "Scavenged Item", Toast.LENGTH_LONG).show();
 
         });
+
+        */
     }
 
     @Override
@@ -239,27 +285,264 @@ public class StartGameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         // If the image capture activity was called and was successful
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Process the image and set it to the TextView
-            processAndSetImage();
-        } else {
 
-            // Otherwise, delete the temporary image file
-            BitmapUtils.deleteImageFile(this, mTempPhotoPath);
+        switch (requestCode) {
+            case ITEM1:
+
+                if (requestCode == 1 && resultCode == RESULT_OK) ;
+            {
+
+                mProgressDialog.setMessage("Scavenving Item...");
+                mProgressDialog.show();
+
+
+                Bundle extras = data.getExtras();
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataBAOS = baos.toByteArray();
+
+                imageView.setImageBitmap(bitmap);
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("Item 1");
+
+                StorageReference imagesRef = storageRef.child("img" + new Date().getTime());
+
+                UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Unable to Scavenge", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
+                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
+                        checkBox1.setChecked(true);
+
+                    }
+
+
+
+
+                }); break;
+
+            }
+            case ITEM2:
+
+                if (requestCode == 2 && resultCode == RESULT_OK) ;
+            {
+
+                mProgressDialog.setMessage("Scavenving Item...");
+                mProgressDialog.show();
+
+
+                Bundle extras = data.getExtras();
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataBAOS = baos.toByteArray();
+
+                imageView.setImageBitmap(bitmap);
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("Item 2");
+
+                StorageReference imagesRef = storageRef.child("img" + new Date().getTime());
+
+                UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Unable to Scavenge", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
+                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
+                        checkBox2.setChecked(true);
+
+                    }
+
+
+                });
+
+                break;
+            }
+            case ITEM3:
+
+                if (requestCode == 3 && resultCode == RESULT_OK) ;
+            {
+
+                mProgressDialog.setMessage("Scavenving Item...");
+                mProgressDialog.show();
+
+
+                Bundle extras = data.getExtras();
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataBAOS = baos.toByteArray();
+
+                imageView.setImageBitmap(bitmap);
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("Item 3");
+
+                StorageReference imagesRef = storageRef.child("img" + new Date().getTime());
+
+                UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Unable to Scavenge", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
+                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
+                        checkBox3.setChecked(true);
+
+                    }
+
+
+
+
+                }); break;
+
+            }
+
+            case ITEM4:
+
+                if (requestCode == 4 && resultCode == RESULT_OK) ;
+            {
+
+                mProgressDialog.setMessage("Scavenving Item...");
+                mProgressDialog.show();
+
+
+                Bundle extras = data.getExtras();
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataBAOS = baos.toByteArray();
+
+                imageView.setImageBitmap(bitmap);
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("Item 4");
+
+                StorageReference imagesRef = storageRef.child("img" + new Date().getTime());
+
+                UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Unable to Scavenge", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
+                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
+                        checkBox4.setChecked(true);
+
+                    }
+
+
+
+
+                }); break;
+
+            }
+
+            case ITEM5:
+
+                if (requestCode == 5 && resultCode == RESULT_OK) ;
+            {
+
+                mProgressDialog.setMessage("Scavenving Item...");
+                mProgressDialog.show();
+
+
+                Bundle extras = data.getExtras();
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataBAOS = baos.toByteArray();
+
+                imageView.setImageBitmap(bitmap);
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("Item 5");
+
+                StorageReference imagesRef = storageRef.child("img" + new Date().getTime());
+
+                UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Unable to Scavenge", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
+                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
+                        checkBox5.setChecked(true);
+
+                    }
+
+
+
+
+                }); break;
+
+            }
         }
-    }
 
+    }
      //* Creates a temporary image file and captures a picture to store in it.
 
     private void launchCamera () {
 
         // Create the capture image intent
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
             // Create the temporary File where the photo should go
             File photoFile = null;
             try {
@@ -280,10 +563,10 @@ public class StartGameActivity extends AppCompatActivity {
                         photoFile);
 
                 // Add the URI so the camera can store the image
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                 // Launch the camera activity
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
@@ -296,12 +579,12 @@ public class StartGameActivity extends AppCompatActivity {
 
         // Toggle Visibility of the views
 
-        mImageView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.VISIBLE);
 
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
 
         // Set the new bitmap to the ImageView
-        mImageView.setImageBitmap(mResultsBitmap);
+        imageView.setImageBitmap(mResultsBitmap);
     }
 
     private BroadcastReceiver br = new BroadcastReceiver() {
