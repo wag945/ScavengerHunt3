@@ -14,7 +14,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class GameDetailsActivity extends AppCompatActivity {
 
@@ -61,14 +64,35 @@ public class GameDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("Games");
+                DatabaseReference myRef = database.getReference();
 
-                startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
-                Log.i("GameDetailsActivity", "Started service");
+                Query query = myRef.child("Games").orderByChild("gameName").equalTo(detailGameName);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getChildrenCount() > 0) {
+                            DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                            String key = nodeDataSnapshot.getKey();
+                            String path = "/" + dataSnapshot.getKey() + "/" + key;
+                            HashMap<String, Object> result = new HashMap<>();
+                            result.put("gameStatus","IN_PROGRESS");
+                            myRef.child(path).updateChildren(result);
 
-                Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
-                myIntent.putExtra("gameName", detailGameName);
-                startActivity(myIntent);
+                            startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+                            Log.i("GameDetailsActivity", "Started service");
+
+                            Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
+                            myIntent.putExtra("gameName", detailGameName);
+                            startActivity(myIntent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.i("MainActivity", ">>> Error:" + "find onCancelled:" + databaseError);
+
+                    }
+                });
 
             }
         });
