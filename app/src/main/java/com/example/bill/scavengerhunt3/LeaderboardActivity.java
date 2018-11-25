@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity implements LeaderboardRecylcerViewAdapter.ItemClickListener{
-    private ArrayList<Game> games;
+    private ArrayList<Game> games = new ArrayList<Game>();
     private DatabaseReference gamesRef;
+    private ArrayList<Team> teamsBig = new ArrayList<Team>();
     LeaderboardRecylcerViewAdapter adapter;
 
 
@@ -32,12 +33,12 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
         setContentView(R.layout.activity_leaderboard);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        gamesRef = database.getReference("Games");
+
 
         String gameName = getIntent().getStringExtra("gameName");
 
         //getting the game from the database
-        DatabaseReference gamesRef = database.getReference("Games");
+       gamesRef = database.getReference("Games");
 
         gamesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -54,56 +55,53 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
 
                         //cycle through the scavenge items and store in a list for hte game constructor
                         for(int i = 0; i < 5; i++){
-                            ScavengeItem newItem = new ScavengeItem(dataSnapshot.child("scavengeList").child(Integer.toString(i))
+                            ScavengeItem newItem = new ScavengeItem(gameSnapshot.child("scavengeList").child(Integer.toString(i))
                                     .child("name").getValue().toString());
-                            if(dataSnapshot.child("scavengeList").child(Integer.toString(i))
+                            if(gameSnapshot.child("scavengeList").child(Integer.toString(i))
                                     .child("found").getValue().equals("true")){
                                 newItem.setFound(true);
                             }
                             scavengeItems.add(newItem);
                         }
-                        //cycle through each teams scavengeItems
-                        for(int j=0; j < dataSnapshot.child("teamList").getChildrenCount(); j++) {
-
-                        }
 
                         //outer loop for each team
-                        for(int j=0; j < dataSnapshot.child("teamList").getChildrenCount();j++ ){
+                        for(int j=0; j < gameSnapshot.child("teamList").getChildrenCount();j++ ){
 
                             //clear the items list then build a new one for each team
                             scavengeItemsTeams.clear();
                             for (int i = 0; i < 5; i++) {
-                                ScavengeItem newItem = new ScavengeItem(dataSnapshot.child("teamList").child(Integer.toString(j))
+                                ScavengeItem newItem = new ScavengeItem(gameSnapshot.child("teamList").child(Integer.toString(j))
                                         .child("teamScavengeList").child(Integer.toString(i)).child("name").getValue().toString());
-                                if (dataSnapshot.child("teamList").child(Integer.toString(j))
+                                if (gameSnapshot.child("teamList").child(Integer.toString(j))
                                         .child("teamScavengeList").child(Integer.toString(i)).child("found").getValue().equals("true")) {
                                     newItem.setFound(true);
                                 }
                                 scavengeItemsTeams.add(newItem);
                             }
                             Team newTeam = new Team(
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("name").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("player1").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("player2").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("player3").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("player4").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("player5").getValue().toString(),
-                                    dataSnapshot.child("teamList").child(Integer.toString(j)).child("record").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("name").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("player1").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("player2").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("player3").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("player4").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("player5").getValue().toString(),
+                                    gameSnapshot.child("teamList").child(Integer.toString(j)).child("record").getValue().toString(),
                                     scavengeItems
                             );
                             teams.add(newTeam);
                         }
 
-                        GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
 
                         //rebuild hte game object from teh data taken from the database
                         game.setTeamList(teams);
                         game.setScavengeList(scavengeItems);
+                        teamsBig = game.getTeamList();
                         games.add(game);
-
+                        System.out.println("ZEREGA game.getTeamList line 99 LeaderboardActivity: " + game.getTeamList().get(0).getName());
+                        System.out.println("ZEREGA games line100 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
                     }
                 }
-                adapter.notifyDataSetChanged();
+               adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -114,9 +112,11 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
         });
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewGames);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new LeaderboardRecylcerViewAdapter(this, games);
+        //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
+       //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
+        adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }

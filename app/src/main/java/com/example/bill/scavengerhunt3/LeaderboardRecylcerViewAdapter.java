@@ -14,15 +14,17 @@ import java.util.ArrayList;
 
 
 public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<LeaderboardRecylcerViewAdapter.ViewHolder> {
-    private ArrayList<Game> mData;
+    private ArrayList<Team> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context mContext;
 
-    LeaderboardRecylcerViewAdapter(Context context, ArrayList<Game> data) {
+    LeaderboardRecylcerViewAdapter(Context context, ArrayList<Team> data) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        //this mData is coming over as null from LeaderboardActivity line 119
+        System.out.println("ZEREGA mData in constructor: " + mData);
     }
 
     @Override
@@ -34,14 +36,17 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Game game = mData.get(position);
-        holder.mGameIdTextView.setText(game.getGameName());
-        holder.mNumTeamsTextView.setText(game.getNumTeams());
-        holder.scavengeItem1Leaderboard.setText(game.getScavengeList().get(0).getName());
-        holder.scavengeItem2Leaderboard.setText(game.getScavengeList().get(1).getName());
-        holder.scavengeItem3Leaderboard.setText(game.getScavengeList().get(2).getName());
-        holder.scavengeItem4Leaderboard.setText(game.getScavengeList().get(3).getName());
-        holder.scavengeItem5Leaderboard.setText(game.getScavengeList().get(4).getName());
+        Team gameTeam = mData.get(position);
+        System.out.println("ZEREGA game mData.get(position): " + gameTeam);
+
+
+
+        holder.scavengeItem1Leaderboard.setText(gameTeam.getTeamScavengeList().get(0).getName());
+        holder.scavengeItem2Leaderboard.setText(gameTeam.getTeamScavengeList().get(1).getName());
+        holder.scavengeItem3Leaderboard.setText(gameTeam.getTeamScavengeList().get(2).getName());
+        holder.scavengeItem4Leaderboard.setText(gameTeam.getTeamScavengeList().get(3).getName());
+        holder.scavengeItem5Leaderboard.setText(gameTeam.getTeamScavengeList().get(4).getName());
+        holder.mTeamName.setText(gameTeam.getName());
 
         ArrayList<CheckBox> scavengeItemsLeaderboardCheckList = new ArrayList<CheckBox>();
         scavengeItemsLeaderboardCheckList.add(holder.scavengeItem1Leaderboard);
@@ -51,21 +56,21 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
         scavengeItemsLeaderboardCheckList.add(holder.scavengeItem5Leaderboard);
 
         //cycle through each team and check thier own scavenger list if its found and check box as appropriate
-        for(Team tm : game.getTeamList()){
-            for(int i =0; i < tm.getTeamScavengeList().size(); i++){
-                scavengeItemsLeaderboardCheckList.get(i).setChecked(tm.getTeamScavengeList().get(i).getFound()) ;
-            }
-        }
 
-        if (game.getGameStatus().toString().equals("NOT_STARTED")) {
-            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameNotStartedColor));
-        }
-        else if (game.getGameStatus().toString().equals("IN_PROGRESS")) {
-            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStartedColor));
-        }
-        else {
-            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStoppedColor));
-        }
+            for(int i =0; i < gameTeam.getTeamScavengeList().size(); i++){
+                scavengeItemsLeaderboardCheckList.get(i).setChecked(gameTeam.getTeamScavengeList().get(i).getFound()) ;
+            }
+
+
+//        if (game.getGameStatus().toString().equals("NOT_STARTED")) {
+//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameNotStartedColor));
+//        }
+//        else if (game.getGameStatus().toString().equals("IN_PROGRESS")) {
+//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStartedColor));
+//        }
+//        else {
+//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStoppedColor));
+//        }
     }
 
     @Override
@@ -76,8 +81,8 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mGameIdTextView;
-        TextView mNumTeamsTextView;
         TextView mGameStatusTextView;
+        TextView mTeamName;
         CheckBox scavengeItem1Leaderboard;
         CheckBox scavengeItem2Leaderboard;
         CheckBox scavengeItem3Leaderboard;
@@ -87,8 +92,8 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
         ViewHolder(View itemView) {
             super(itemView);
             mGameIdTextView = (TextView)itemView.findViewById(R.id.gameIdLeaderboard);
-            mNumTeamsTextView = (TextView)itemView.findViewById(R.id.numTeamsLeaderboard);
             mGameStatusTextView = (TextView)itemView.findViewById(R.id.gameStatusLeaderboard);
+            mTeamName = (TextView)itemView.findViewById(R.id.teamNameLeaderboard);
             scavengeItem1Leaderboard = (CheckBox)itemView.findViewById(R.id.scavengeItem1Leaderboard);
             scavengeItem2Leaderboard = (CheckBox)itemView.findViewById(R.id.scavengeItem2Leaderboard);
             scavengeItem3Leaderboard = (CheckBox)itemView.findViewById(R.id.scavengeItem3Leaderboard);
