@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,96 +30,101 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_gravity="center">
+
                     <TextView
                         android:id="@+id/gameIdLeaderboard"
                         android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:textColor="@color/light_blue"
                         android:textSize="18dp"
-                        android:textColor="@color/light_blue"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/teamNameLeaderboard"
                         android:layout_width="230dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="26dp"
                         android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="@color/light_blue"
+                        android:textSize="18dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:textSize="18dp"
-                        android:textColor="@color/light_blue"/>
-
-                    <TextView
-                        android:id="@+id/numTeamsLeaderboard"
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/gameId"
-                        android:textSize="18dp"
-                        android:textColor="@color/light_blue"/>
+                        app:layout_constraintTop_toBottomOf="@+id/gameStatusLeaderboard" />
 
                     <TextView
                         android:id="@+id/gameStatusLeaderboard"
                         android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:textColor="@color/light_blue"
+                        android:textSize="18dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/numTeams"
-                        android:textSize="18dp"
-                        android:textColor="@color/light_blue"/>
+                        app:layout_constraintTop_toBottomOf="@+id/numTeams" />
 
                     <CheckBox
                         android:id="@+id/scavengeItem1Leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="46dp"
-                        tools:layout_editor_absoluteY="74dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/teamNameLeaderboard" />
 
                     <CheckBox
                         android:id="@+id/scavengeItem2Leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="46dp"
-                        tools:layout_editor_absoluteY="130dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scavengeItem1Leaderboard" />
 
                     <CheckBox
                         android:id="@+id/scavengeItem3Leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="46dp"
-                        tools:layout_editor_absoluteY="186dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="16dp"
+                        android:clickable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scavengeItem2Leaderboard" />
 
                     <CheckBox
                         android:id="@+id/scavengeItem4Leaderboard"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="46dp"
-                        tools:layout_editor_absoluteY="245dp" />
+                        android:layout_height="32dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scavengeItem3Leaderboard" />
 
                     <CheckBox
                         android:id="@+id/scavengeItem5Leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="46dp"
-                        tools:layout_editor_absoluteY="297dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scavengeItem4Leaderboard" />
                 </android.support.constraint.ConstraintLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
