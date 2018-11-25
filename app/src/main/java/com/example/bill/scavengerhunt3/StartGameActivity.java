@@ -31,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -42,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import android.content.BroadcastReceiver;
 
@@ -57,6 +59,8 @@ public class StartGameActivity extends AppCompatActivity {
     private android.widget.Button itemButton3;
     private android.widget.Button itemButton4;
     private android.widget.Button itemButton5;
+    private Button leaderBoardButton;
+    private Button returnToGameLobbyButton;
     private android.widget.TextView textView;
     private android.widget.TextView timerText;
     private android.widget.TextView textView3;
@@ -95,6 +99,18 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton3 = findViewById(R.id.itemButton3);
         itemButton4 = findViewById(R.id.itemButton4);
         itemButton5 = findViewById(R.id.itemButton5);
+
+        leaderBoardButton = findViewById(R.id.leaderboardButton);
+
+        returnToGameLobbyButton = findViewById(R.id.returnToGameLobbyButton);
+        returnToGameLobbyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(StartGameActivity.this, GameLobbyActivity.class);
+                StartGameActivity.this.startActivity(myIntent);
+            }
+        });
+        returnToGameLobbyButton.setVisibility(View.INVISIBLE);
 
         checkBox1 = findViewById(R.id.checkBox1);
         checkBox2 = findViewById(R.id.checkBox2);
@@ -599,6 +615,20 @@ public class StartGameActivity extends AppCompatActivity {
         super.onResume();
         registerReceiver(br, new IntentFilter(BroadcastService.COUNTDOWN_BR));
         Log.i("StartGameActivity", "Registered broacast receiver");
+
+        //Change visibility of buttons
+        itemButton1.setVisibility(View.VISIBLE);
+        itemButton2.setVisibility(View.VISIBLE);
+        itemButton3.setVisibility(View.VISIBLE);
+        itemButton4.setVisibility(View.VISIBLE);
+        itemButton5.setVisibility(View.VISIBLE);
+        checkBox1.setVisibility(View.VISIBLE);
+        checkBox2.setVisibility(View.VISIBLE);
+        checkBox3.setVisibility(View.VISIBLE);
+        checkBox4.setVisibility(View.VISIBLE);
+        checkBox5.setVisibility(View.VISIBLE);
+        leaderBoardButton.setVisibility(View.VISIBLE);
+        returnToGameLobbyButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -635,20 +665,78 @@ public class StartGameActivity extends AppCompatActivity {
                 minutes = secondsRemaining / 60;
                 seconds = secondsRemaining % 60;
             }
-
+            else {
+                seconds = secondsRemaining;
+            }
+            Log.d("StartGameActivity","minutes = "+minutes+" seconds = "+seconds);
             String timerTextStr= "";
 
             if (seconds < 10) {
-                timerTextStr = Long.toString(minutes)+":0"+Long.toString(seconds);
+                if (minutes < 1) {
+                    timerTextStr = "00:0" + Long.toString(seconds);
+                }
+                else {
+                    timerTextStr = Long.toString(minutes) + ":0" + Long.toString(seconds);
+                }
                 timerText.setText(timerTextStr);
-            }
-            else {
-                timerTextStr = Long.toString(minutes)+":"+Long.toString(seconds);
+                if (minutes < 1 && secondsRemaining < 5) {
+                    completeGame();
+                }
+            } else {
+                if (minutes >= 1) {
+                    timerTextStr = Long.toString(minutes) + ":" + Long.toString(seconds);
+                }
+                else {
+                    timerTextStr = "00:" + Long.toString(seconds);
+                }
                 timerText.setText(timerTextStr);
             }
 
             gamesRef.child("gameTimer").setValue(timerTextStr);
         }
+    }
+
+    private void completeGame() {
+        //Update the timer to show game is ENDED
+        timerText.setText("ENDED");
+
+        //Change visibility of buttons
+        itemButton1.setVisibility(View.INVISIBLE);
+        itemButton2.setVisibility(View.INVISIBLE);
+        itemButton3.setVisibility(View.INVISIBLE);
+        itemButton4.setVisibility(View.INVISIBLE);
+        itemButton5.setVisibility(View.INVISIBLE);
+        checkBox1.setVisibility(View.INVISIBLE);
+        checkBox2.setVisibility(View.INVISIBLE);
+        checkBox3.setVisibility(View.INVISIBLE);
+        checkBox4.setVisibility(View.INVISIBLE);
+        checkBox5.setVisibility(View.INVISIBLE);
+
+        leaderBoardButton.setVisibility(View.INVISIBLE);
+        returnToGameLobbyButton.setVisibility(View.VISIBLE);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        Query query = myRef.child("Games").orderByChild("gameName").equalTo(gameName);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() > 0) {
+                    DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                    String key = nodeDataSnapshot.getKey();
+                    String path = "/" + dataSnapshot.getKey() + "/" + key;
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put("gameStatus","ENDED");
+                    myRef.child(path).updateChildren(result);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("StartGameActivity", ">>> Error:" + "find onCancelled:" + databaseError);
+            }
+        });
     }
 }
 

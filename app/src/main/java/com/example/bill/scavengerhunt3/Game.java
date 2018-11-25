@@ -151,6 +151,9 @@ public class Game {
         mGameState = GameState.ENDED;
     }
 
+    public void setGameStatus(GameState gameState) {
+        mGameState = gameState;
+    }
     public GameState getGameStatus() {
         return mGameState;
     }
