@@ -89,6 +89,7 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
                                     gameSnapshot.child("teamList").child(Integer.toString(j)).child("record").getValue().toString(),
                                     scavengeItems
                             );
+                            newTeam.setTeamScavengeList(scavengeItemsTeams);
                             teams.add(newTeam);
                         }
 
