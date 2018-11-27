@@ -55,6 +55,7 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
 
                         //cycle through the scavenge items and store in a list for hte game constructor
                         for(int i = 0; i < 5; i++){
+                            System.out.println("ZEREGA gameSnapshot.child('scavengeList'" + gameSnapshot.child("scavengeList"));
                             ScavengeItem newItem = new ScavengeItem(gameSnapshot.child("scavengeList").child(Integer.toString(i))
                                     .child("name").getValue().toString());
                             if(gameSnapshot.child("scavengeList").child(Integer.toString(i))
@@ -101,7 +102,9 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
                         System.out.println("ZEREGA games line100 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
                     }
                 }
-               adapter.notifyDataSetChanged();
+
+               //adapter.notifyDataSetChanged();
+                updateRecycler(teamsBig);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -112,17 +115,27 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
         });
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
-       //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
-        adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+//        RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
+//       //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
+//        adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
+//        adapter.setClickListener(this);
+//        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    public void updateRecycler(ArrayList<Team> teamsBig){
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
+        //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
+        adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 }
