@@ -55,7 +55,12 @@ public class GameDetailsActivity extends AppCompatActivity {
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+                Log.i("GameDetailsActivity", "Started service");
 
+                Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
+                myIntent.putExtra("gameName", detailGameName);
+                startActivity(myIntent);
             }
         });
 
