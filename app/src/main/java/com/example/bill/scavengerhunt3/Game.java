@@ -109,7 +109,7 @@ public class Game {
 
     public String getNumTeams() {
 
-        return Integer.toString(teamIndex);
+        return Integer.toString(teamIndex-1);
     }
 
     public void startGame() {

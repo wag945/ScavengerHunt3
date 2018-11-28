@@ -70,18 +70,18 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
                     String name = teamSnapshot.child("gameName").getValue(String.class);
                     if (name != null) {
                         Log.d("GameLobbyActivity", "name from snapshot:" + name);
-                        String team1 = teamSnapshot.child("team1").getValue(String.class);
-                        Log.d("GameLobbyActivity", "team1 from snapshot: " + team1);
-                        String team2 = teamSnapshot.child("team2").getValue(String.class);
-                        Log.d("GameLobbyActivity", "team2 from snapshot: " + team2);
-                        String team3 = teamSnapshot.child("team3").getValue(String.class);
-                        Log.d("GameLobbyActivity", "team3 from snapshot: " + team3);
-                        String team4 = teamSnapshot.child("team4").getValue(String.class);
-                        Log.d("GameLobbyActivity", "team4 from snapshot: " + team4);
-                        String team5 = teamSnapshot.child("team5").getValue(String.class);
-                        Log.d("GameLobbyActivity", "team5 from snapshot: " + team5);
                         String gameStatus = teamSnapshot.child("gameStatus").getValue(String.class);
                         Game game = new Game(name);
+                        Log.d("GameLobbyActivity","number of teams = "+teamSnapshot.child("teamList").getChildrenCount());
+                        //Loop through all the teams associated with this game
+                        for (int i = 0; i < teamSnapshot.child("teamList").getChildrenCount(); i++) {
+                            Log.d("GameLobbyActivity","team ["+i+"] = "+teamSnapshot.child("teamList").child(Integer.toString(i)).child("name"));
+                            Team team = new Team();
+                            team.setName(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").toString());
+                            if (teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").toString().length() > 0) {
+                                game.addTeam(team);
+                            }
+                        }
                         if (gameStatus.equals("NOT_STARTED")) {
                             game.setGameStatus(Game.GameState.NOT_STARTED);
                         }
@@ -91,21 +91,6 @@ public class GameLobbyActivity extends AppCompatActivity implements GameRecycler
                         else {
                             game.setGameStatus(Game.GameState.ENDED);
                         }
-//                        if (team1.length() > 0) {
-//                            game.addTeam(team1);
-//                        }
-//                        if (team2.length() > 0) {
-//                            game.addTeam(team2);
-//                        }
-//                        if (team3.length() > 0) {
-//                            game.addTeam(team3);
-//                        }
-//                        if (team4.length() > 0) {
-//                            game.addTeam(team4);
-//                        }
-//                        if (team5.length() > 0) {
-//                            game.addTeam(team5);
-//                        }
                         games.add(game);
                     }
                 }
