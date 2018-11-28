@@ -58,7 +58,10 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
         //cycle through each team and check thier own scavenger list if its found and check box as appropriate
 
             for(int i =0; i < gameTeam.getTeamScavengeList().size(); i++){
-                scavengeItemsLeaderboardCheckList.get(i).setChecked(gameTeam.getTeamScavengeList().get(i).getFound()) ;
+                if(gameTeam.getTeamScavengeList().get(i).getFound()){
+                    scavengeItemsLeaderboardCheckList.get(i).setChecked(true);
+                }
+
             }
 
 

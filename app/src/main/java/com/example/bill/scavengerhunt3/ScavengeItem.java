@@ -24,4 +24,12 @@ public class ScavengeItem {
     public void setFound(Boolean found) {
         this.found = found;
     }
+
+    @Override
+    public String toString() {
+        return "ScavengeItem{" +
+                "name='" + name + '\'' +
+                ", found=" + found +
+                '}';
+    }
 }
