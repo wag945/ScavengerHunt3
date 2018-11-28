@@ -52,7 +52,7 @@ public class Game {
     public Game(String gameName) {
         mGameName = gameName;
         mGameState = GameState.NOT_STARTED;
-        teamIndex = 1;
+        teamIndex = 0;
         this.timerView = "00:00";
         this.mScavengeList = createScavengeList();
         this.mTeamList = createTeamList();

@@ -115,7 +115,43 @@ public class AddGameActivity extends AppCompatActivity {
                 for(Team tm : teams){
                     tm.setTeamScavengeList(game.getScavengeList());
                 }
-                game.setTeamList(teams);
+//                game.setTeamList(teams);
+                Log.d("AddGameActivity","team1 = "+spinnerTeam1.getSelectedItem().toString());
+                Team team = new Team();
+                team.setName(spinnerTeam1.getSelectedItem().toString());
+                game.addTeam(team);
+                Log.d("AddGameActivity","team2 = "+spinnerTeam2.getSelectedItem().toString());
+                boolean teamNameComparison = spinnerTeam2.getSelectedItem().toString().equals("Marios Mates");
+                Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
+                //Skip the defaulted team name "Marios Mates"
+                if (false == teamNameComparison) {
+                    team.setName(spinnerTeam2.getSelectedItem().toString());
+                    game.addTeam(team);
+                }
+                Log.d("AddGameActivity","team3 = "+spinnerTeam3.getSelectedItem().toString());
+                teamNameComparison = spinnerTeam3.getSelectedItem().toString().equals("Marios Mates");
+                Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
+                //Skip the defaulted team name "Marios Mates"
+                if (false == teamNameComparison) {
+                    team.setName(spinnerTeam3.getSelectedItem().toString());
+                    game.addTeam(team);
+                }
+                Log.d("AddGameActivity","team4 = "+spinnerTeam4.getSelectedItem().toString());
+                teamNameComparison = spinnerTeam4.getSelectedItem().toString().equals("Marios Mates");
+                Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
+                //Skip the defaulted team name "Marios Mates"
+                if (false == teamNameComparison) {
+                    team.setName(spinnerTeam4.getSelectedItem().toString());
+                    game.addTeam(team);
+                }
+                Log.d("AddGameActivity","team5 = "+spinnerTeam5.getSelectedItem().toString());
+                teamNameComparison = spinnerTeam5.getSelectedItem().toString().equals("Marios Mates");
+                Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
+                //Skip the defaulted team name "Marios Mates"
+                if (false == teamNameComparison) {
+                    team.setName(spinnerTeam5.getSelectedItem().toString());
+                    game.addTeam(team);
+                }
                 //Adding values
 //                game.addTeam(mTeam1.getText().toString());
 //                game.addTeam(mTeam2.getText().toString());
@@ -124,6 +160,7 @@ public class AddGameActivity extends AppCompatActivity {
 //                game.addTeam(mTeam5.getText().toString());
                 DatabaseReference newRef = mDatabase.child("Games").push();
                 Log.d("AddGameActivity","adding game "+gameName);
+                Log.d("AddGameActivity","number of teams = "+game.getNumTeams());
                 newRef.setValue(game);
                 Intent myIntent = new Intent(AddGameActivity.this, GameLobbyActivity.class);
                 AddGameActivity.this.startActivity(myIntent);

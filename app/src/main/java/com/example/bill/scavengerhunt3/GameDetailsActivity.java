@@ -55,7 +55,12 @@ public class GameDetailsActivity extends AppCompatActivity {
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+                Log.i("GameDetailsActivity", "Started service");
 
+                Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
+                myIntent.putExtra("gameName", detailGameName);
+                startActivity(myIntent);
             }
         });
 
@@ -78,8 +83,8 @@ public class GameDetailsActivity extends AppCompatActivity {
                             result.put("gameStatus","IN_PROGRESS");
                             myRef.child(path).updateChildren(result);
 
-                            startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
-                            Log.i("GameDetailsActivity", "Started service");
+//                            startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+//                            Log.i("GameDetailsActivity", "Started service");
 
                             Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
                             myIntent.putExtra("gameName", detailGameName);
