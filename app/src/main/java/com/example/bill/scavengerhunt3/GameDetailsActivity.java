@@ -122,11 +122,12 @@ public class GameDetailsActivity extends AppCompatActivity {
                             mJoinGameButton.setVisibility(View.INVISIBLE);
                         }
                         //Set visibility of Start Game button
-                        if (teamSnapshot.child("gameStatus").getValue().toString().equals("STARTED")) {
-                            mStartGameButton.setVisibility(View.INVISIBLE);
+                        if (teamSnapshot.child("gameStatus").getValue().toString().equals("NOT_STARTED") ||
+                                teamSnapshot.child("gameStatus").getValue().toString().equals("ENDED")) {
+                            mStartGameButton.setVisibility(View.VISIBLE);
                         }
                         else {
-                            mStartGameButton.setVisibility(View.VISIBLE);
+                            mStartGameButton.setVisibility(View.INVISIBLE);
                         }
 
                         Log.d("GameDetailsActivity","teamSnapshot = "+teamSnapshot.toString());
