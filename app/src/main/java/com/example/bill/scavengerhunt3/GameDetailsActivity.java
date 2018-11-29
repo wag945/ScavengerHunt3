@@ -128,16 +128,31 @@ public class GameDetailsActivity extends AppCompatActivity {
                         else {
                             mStartGameButton.setVisibility(View.VISIBLE);
                         }
-                        String team1 = teamSnapshot.child("teamList").child("0").child("name").getValue(String.class);
-                        mTeam1TextView.setText(team1);
-                        String team2 = teamSnapshot.child("teamList").child("1").child("name").getValue(String.class);
-                        mTeam2TextView.setText(team2);
-                        String team3 = teamSnapshot.child("teamList").child("2").child("name").getValue(String.class);
-                        mTeam3TextView.setText(team3);
-                        String team4 = teamSnapshot.child("teamList").child("3").child("name").getValue(String.class);
-                        mTeam4TextView.setText(team4);
-                        String team5 = teamSnapshot.child("teamList").child("4").child("name").getValue(String.class);
-                        mTeam5TextView.setText(team5);
+
+                        Log.d("GameDetailsActivity","teamSnapshot = "+teamSnapshot.toString());
+                        String numTeamsStr = teamSnapshot.child("numTeams").getValue().toString();
+                        int numTeams = Integer.parseInt(numTeamsStr);
+                        Log.d("GameDetailsActivity","numTeams = "+numTeams);
+                        for (int i = 0; i < numTeams; i++) {
+                            Log.d("GameDetailsActivity","team"+i+" = "+teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                            switch(i) {
+                                case 0:
+                                    mTeam1TextView.setText(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                                    break;
+                                case 1:
+                                    mTeam2TextView.setText(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                                    break;
+                                case 2:
+                                    mTeam3TextView.setText(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                                    break;
+                                case 3:
+                                    mTeam4TextView.setText(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                                    break;
+                                case 4:
+                                    mTeam5TextView.setText(teamSnapshot.child("teamList").child(Integer.toString(i)).child("name").getValue().toString());
+                                    break;
+                            }
+                        }
                     }
                 }
             }
