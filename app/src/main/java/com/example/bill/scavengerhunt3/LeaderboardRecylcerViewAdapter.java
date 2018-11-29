@@ -3,6 +3,7 @@ package com.example.bill.scavengerhunt3;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,15 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
     private ItemClickListener mClickListener;
     private Context mContext;
 
+
+
     LeaderboardRecylcerViewAdapter(Context context, ArrayList<Team> data) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         //this mData is coming over as null from LeaderboardActivity line 119
-        System.out.println("ZEREGA mData in constructor: " + mData);
+        //Log.d("scavengeItemsTeams", "mData in constructor of RecyclerView: " + mData.get(0).getTeamScavengeList().get(0).getName() +
+                //mData.get(0).getTeamScavengeList().get(0).getFound());
     }
 
     @Override
@@ -37,7 +41,7 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Team gameTeam = mData.get(position);
-        System.out.println("ZEREGA game mData.get(position): " + gameTeam);
+        //System.out.println("ZEREGA game mData.get(position): " + gameTeam);
 
 
 
@@ -47,6 +51,8 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
         holder.scavengeItem4Leaderboard.setText(gameTeam.getTeamScavengeList().get(3).getName());
         holder.scavengeItem5Leaderboard.setText(gameTeam.getTeamScavengeList().get(4).getName());
         holder.mTeamName.setText(gameTeam.getName());
+
+
 
         ArrayList<CheckBox> scavengeItemsLeaderboardCheckList = new ArrayList<CheckBox>();
         scavengeItemsLeaderboardCheckList.add(holder.scavengeItem1Leaderboard);
@@ -63,6 +69,7 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
                 }
 
             }
+
 
 
 //        if (game.getGameStatus().toString().equals("NOT_STARTED")) {

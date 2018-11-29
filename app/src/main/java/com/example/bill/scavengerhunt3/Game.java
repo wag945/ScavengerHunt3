@@ -45,6 +45,9 @@ public class Game {
         mScavengeList = scavengeList;
     }
 
+
+
+
     public ArrayList<Team> getTeamList() {
         return mTeamList;
     }
@@ -57,8 +60,9 @@ public class Game {
         this.mScavengeList = createScavengeList();
         this.mTeamList = createTeamList();
 
-
     }
+
+
 
     public void setTeamList(ArrayList<Team> teamList) {
         mTeamList = teamList;

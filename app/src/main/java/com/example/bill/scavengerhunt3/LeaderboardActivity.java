@@ -55,13 +55,11 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
 
                         //cycle through the scavenge items and store in a list for hte game constructor
                         for(int i = 0; i < 5; i++){
-                            System.out.println("ZEREGA gameSnapshot.child('scavengeList'" + gameSnapshot.child("scavengeList"));
                             ScavengeItem newItem = new ScavengeItem(gameSnapshot.child("scavengeList").child(Integer.toString(i))
                                     .child("name").getValue().toString());
 
                             if(gameSnapshot.child("scavengeList").child(Integer.toString(i))
                                     .child("found").getValue().equals("true")){
-
 
                                 newItem.setFound(true);
                             }
@@ -73,20 +71,25 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
 
                             //clear the items list then build a new one for each team
                             Log.d("scavengeItemsTeams", "scavengeItemsTeams before clear line 72: " + scavengeItemsTeams);
-                            scavengeItemsTeams.clear();
+                            //scavengeItemsTeams.clear();
                             Log.d("scavengeItemsTeams", "scavengeItemsTeams after clear line 74: " + scavengeItemsTeams);
                             for (int i = 0; i < 5; i++) {
                                 ScavengeItem newItem = new ScavengeItem(gameSnapshot.child("teamList").child(Integer.toString(j))
                                         .child("teamScavengeList").child(Integer.toString(i)).child("name").getValue().toString());
-                                Log.d("scavengeItemsTeams", "scavengeList item found: " + gameSnapshot.child("teamList").child(Integer.toString(j))
-                                        .child("teamScavengeList").child(Integer.toString(i))
-                                        .child("found").getValue());
+
+
+
                                 if (gameSnapshot.child("teamList").child(Integer.toString(j))
                                         .child("teamScavengeList").child(Integer.toString(i))
                                         .child("found").getValue().toString().equals("true")) {
                                     newItem.setFound(true);
                                 }
                                 scavengeItemsTeams.add(newItem);
+                            }
+                            ArrayList<ScavengeItem> extraScavengeList = new ArrayList<>();
+
+                            for(ScavengeItem item: scavengeItemsTeams){
+                                extraScavengeList.add(item);
                             }
                             Team newTeam = new Team(
                                     gameSnapshot.child("teamList").child(Integer.toString(j)).child("name").getValue().toString(),
@@ -96,18 +99,33 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
                                     gameSnapshot.child("teamList").child(Integer.toString(j)).child("player4").getValue().toString(),
                                     gameSnapshot.child("teamList").child(Integer.toString(j)).child("player5").getValue().toString(),
                                     gameSnapshot.child("teamList").child(Integer.toString(j)).child("record").getValue().toString(),
-                                    scavengeItems
+                                    extraScavengeList
                             );
-                            Log.d("scavengeItemsTeams", "scavengeItemsTeams before entered into team line 101: " + scavengeItemsTeams);
-                            newTeam.setTeamScavengeList(scavengeItemsTeams);
+                            Log.d("scavengeItemsTeams", "newTeam line 102: " + newTeam.getName() + " " + newTeam.getTeamScavengeList().toString());
+                            //newTeam.setTeamScavengeList(scavengeItemsTeams);
+
+
                             teams.add(newTeam);
+                            scavengeItemsTeams.clear();
+
+                            Log.d("scavengeItemsTeams", "teams line 104: " + teams);
+                            Log.d("scavengeItemsTeams", "teamsBig passing to adapter line 105: " +teams.get(0).getName()
+                                    + " " + teams.get(0)
+                                    .getTeamScavengeList().toString());
+                            Log.d("scavengeItemsTeams", "teams line 108: " + teams.get(0).getName());
+                            for(Team tm: teams){
+                                Log.d("scavengeItemsTeams", "newTeam line 110: " + tm.getName() + " " + tm.getTeamScavengeList().toString() + "\n");
+
+                            }
+
                         }
 
 
                         //rebuild hte game object from teh data taken from the database
                         game.setTeamList(teams);
                         game.setScavengeList(scavengeItems);
-                        teamsBig = game.getTeamList();
+                        //teamsBig = game.getTeamList();
+                        teamsBig = teams;
                         games.add(game);
                         System.out.println("ZEREGA game.getTeamList line 99 LeaderboardActivity: " + game.getTeamList().get(0).getName());
                         System.out.println("ZEREGA games line100 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
@@ -124,15 +142,6 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
                         Toast.LENGTH_LONG).show();
             }
         });
-
-        // set up the RecyclerView
-//        RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
-//       //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
-//        adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
-//        adapter.setClickListener(this);
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -141,18 +150,25 @@ public class LeaderboardActivity extends AppCompatActivity implements Leaderboar
     }
 
     public void updateRecycler(ArrayList<Team> teamsBig){
-
-
         RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamsLeaderboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //System.out.println("ZEREGA games line 116 LeaderboardActivity: " + games.get(0).getTeamList().get(0).getName());
         //for some reason the arraylist of teams teamsBig is not getting hte list of teams from line 98
 
+
         // The input should be the list os players for each game.
         adapter = new LeaderboardRecylcerViewAdapter(this, teamsBig);
+
+//        Log.d("scavengeItemsTeams", "teamsBig passing to adapter line 153: " + teamsBig.get(0)
+//                .getTeamScavengeList().get(0).getName() + " " + teamsBig.get(0)
+//                .getTeamScavengeList().get(0).getFound());
+//        Log.d("scavengeItemsTeams", "teamsBig passing to adapter line 154: " + teamsBig.get(0)
+//                .getTeamScavengeList().toString());
 
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+
 }
