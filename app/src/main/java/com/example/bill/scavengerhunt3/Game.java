@@ -75,27 +75,6 @@ public class Game {
         return mGameName;
     }
 
-    //commenting out to convert teams from strings to Team object
-//    public void addTeam(String teamName) {
-//        switch (teamIndex) {
-//            case 1:
-//                team1 = teamName;
-//                break;
-//            case 2:
-//                team2 = teamName;
-//                break;
-//            case 3:
-//                team3 = teamName;
-//                break;
-//            case 4:
-//                team4 = teamName;
-//                break;
-//            default:
-//                team5 = teamName;
-//                break;
-//        }
-//        teamIndex++;
-//    }
 
     public void addTeam(Team team){
         mTeamList.add(team);
@@ -117,11 +96,6 @@ public class Game {
     }
 
     public void startGame() {
-        //mTimer = new Timer();
-
-        //Start a timer to run immediately and repeat every second
-       // startTimer();
-        //mTimer.schedule(mGameTimer,0,1000);
         mGameState = GameState.IN_PROGRESS;
 
 
@@ -168,23 +142,6 @@ public class Game {
 
     }
 
-//    public void startTimer(){
-//
-//        //new game timer set to 15 min, 60 sec * 15 = 900 x milliseconds, interval set to 1 second, 1000 miliseconds
-//
-//        mGameTimer = new CountDownTimer(900 * 1000, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                //setting the timer to be viewed in minute:seconds
-//                timerView = millisUntilFinished / 1000 + " : " + millisUntilFinished % 60;
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                timerView = "Out of Time!";
-//            }
-//        };
-//    }
 
     public String getTimerView() {
         return timerView;

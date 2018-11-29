@@ -47,11 +47,6 @@ public class AddGameActivity extends AppCompatActivity {
         mTeamsRef = FirebaseDatabase.getInstance().getReference("Teams");
 
         mGameName = (EditText) findViewById(R.id.gameName);
-//        mTeam1 = (EditText) findViewById(R.id.team1);
-//        mTeam2 = (EditText) findViewById(R.id.team2);
-//        mTeam3 = (EditText) findViewById(R.id.team3);
-//        mTeam4 = (EditText) findViewById(R.id.team4);
-//        mTeam5 = (EditText) findViewById(R.id.team5);
         mAddGame = (Button) findViewById(R.id.addGame);
         spinnerTeam1 = (Spinner) findViewById(R.id.spinnerTeam1);
         spinnerTeam2 = (Spinner) findViewById(R.id.spinnerTeam2);
@@ -106,7 +101,7 @@ public class AddGameActivity extends AppCompatActivity {
                 for(Team tm : teams){
                     tm.setTeamScavengeList(game.getScavengeList());
                 }
-//                game.setTeamList(teams);
+
                 Log.d("AddGameActivity","team1 = "+spinnerTeam1.getSelectedItem().toString());
                 Team team = new Team();
                 team.setName(spinnerTeam1.getSelectedItem().toString());

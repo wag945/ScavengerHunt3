@@ -20,15 +20,10 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
     private ItemClickListener mClickListener;
     private Context mContext;
 
-
-
     LeaderboardRecylcerViewAdapter(Context context, ArrayList<Team> data) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        //this mData is coming over as null from LeaderboardActivity line 119
-        //Log.d("scavengeItemsTeams", "mData in constructor of RecyclerView: " + mData.get(0).getTeamScavengeList().get(0).getName() +
-                //mData.get(0).getTeamScavengeList().get(0).getFound());
     }
 
     @Override
@@ -41,9 +36,6 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Team gameTeam = mData.get(position);
-        //System.out.println("ZEREGA game mData.get(position): " + gameTeam);
-
-
 
         holder.scavengeItem1Leaderboard.setText(gameTeam.getTeamScavengeList().get(0).getName());
         holder.scavengeItem2Leaderboard.setText(gameTeam.getTeamScavengeList().get(1).getName());
@@ -51,8 +43,6 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
         holder.scavengeItem4Leaderboard.setText(gameTeam.getTeamScavengeList().get(3).getName());
         holder.scavengeItem5Leaderboard.setText(gameTeam.getTeamScavengeList().get(4).getName());
         holder.mTeamName.setText(gameTeam.getName());
-
-
 
         ArrayList<CheckBox> scavengeItemsLeaderboardCheckList = new ArrayList<CheckBox>();
         scavengeItemsLeaderboardCheckList.add(holder.scavengeItem1Leaderboard);
@@ -69,18 +59,6 @@ public class LeaderboardRecylcerViewAdapter extends RecyclerView.Adapter<Leaderb
                 }
 
             }
-
-
-
-//        if (game.getGameStatus().toString().equals("NOT_STARTED")) {
-//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameNotStartedColor));
-//        }
-//        else if (game.getGameStatus().toString().equals("IN_PROGRESS")) {
-//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStartedColor));
-//        }
-//        else {
-//            holder.mGameStatusTextView.setTextColor(mContext.getResources().getColor(R.color.gameStoppedColor));
-//        }
     }
 
     @Override
