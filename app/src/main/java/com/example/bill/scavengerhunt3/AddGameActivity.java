@@ -119,6 +119,17 @@ public class AddGameActivity extends AppCompatActivity {
                 Log.d("AddGameActivity","team1 = "+spinnerTeam1.getSelectedItem().toString());
                 Team team = new Team();
                 team.setName(spinnerTeam1.getSelectedItem().toString());
+                //Populate the players and scavenge list for this team
+                for(Team tm : teams){
+                    if (tm.getName().equals(spinnerTeam1.getSelectedItem().toString())) {
+                        team.addPlayer(tm.getPlayer1());
+                        team.addPlayer(tm.getPlayer2());
+                        team.addPlayer(tm.getPlayer3());
+                        team.addPlayer(tm.getPlayer4());
+                        team.addPlayer(tm.getPlayer5());
+                        team.setTeamScavengeList(tm.getTeamScavengeList());
+                    }
+                }
                 game.addTeam(team);
                 Log.d("AddGameActivity","team2 = "+spinnerTeam2.getSelectedItem().toString());
                 boolean teamNameComparison = spinnerTeam2.getSelectedItem().toString().equals("Marios Mates");
@@ -126,6 +137,17 @@ public class AddGameActivity extends AppCompatActivity {
                 //Skip the defaulted team name "Marios Mates"
                 if (false == teamNameComparison) {
                     team.setName(spinnerTeam2.getSelectedItem().toString());
+                    //Populate the players and scavenge list for this team
+                    for(Team tm : teams){
+                        if (tm.getName().equals(spinnerTeam2.getSelectedItem().toString())) {
+                            team.addPlayer(tm.getPlayer1());
+                            team.addPlayer(tm.getPlayer2());
+                            team.addPlayer(tm.getPlayer3());
+                            team.addPlayer(tm.getPlayer4());
+                            team.addPlayer(tm.getPlayer5());
+                            team.setTeamScavengeList(tm.getTeamScavengeList());
+                        }
+                    }
                     game.addTeam(team);
                 }
                 Log.d("AddGameActivity","team3 = "+spinnerTeam3.getSelectedItem().toString());
@@ -134,6 +156,17 @@ public class AddGameActivity extends AppCompatActivity {
                 //Skip the defaulted team name "Marios Mates"
                 if (false == teamNameComparison) {
                     team.setName(spinnerTeam3.getSelectedItem().toString());
+                    //Populate the players and scavenge list for this team
+                    for(Team tm : teams){
+                        if (tm.getName().equals(spinnerTeam3.getSelectedItem().toString())) {
+                            team.addPlayer(tm.getPlayer1());
+                            team.addPlayer(tm.getPlayer2());
+                            team.addPlayer(tm.getPlayer3());
+                            team.addPlayer(tm.getPlayer4());
+                            team.addPlayer(tm.getPlayer5());
+                            team.setTeamScavengeList(tm.getTeamScavengeList());
+                        }
+                    }
                     game.addTeam(team);
                 }
                 Log.d("AddGameActivity","team4 = "+spinnerTeam4.getSelectedItem().toString());
@@ -142,6 +175,17 @@ public class AddGameActivity extends AppCompatActivity {
                 //Skip the defaulted team name "Marios Mates"
                 if (false == teamNameComparison) {
                     team.setName(spinnerTeam4.getSelectedItem().toString());
+                    //Populate the players and scavenge list for this team
+                    for(Team tm : teams){
+                        if (tm.getName().equals(spinnerTeam4.getSelectedItem().toString())) {
+                            team.addPlayer(tm.getPlayer1());
+                            team.addPlayer(tm.getPlayer2());
+                            team.addPlayer(tm.getPlayer3());
+                            team.addPlayer(tm.getPlayer4());
+                            team.addPlayer(tm.getPlayer5());
+                            team.setTeamScavengeList(tm.getTeamScavengeList());
+                        }
+                    }
                     game.addTeam(team);
                 }
                 Log.d("AddGameActivity","team5 = "+spinnerTeam5.getSelectedItem().toString());
@@ -150,14 +194,20 @@ public class AddGameActivity extends AppCompatActivity {
                 //Skip the defaulted team name "Marios Mates"
                 if (false == teamNameComparison) {
                     team.setName(spinnerTeam5.getSelectedItem().toString());
+                    //Populate the players and scavenge list for this team
+                    for(Team tm : teams){
+                        if (tm.getName().equals(spinnerTeam5.getSelectedItem().toString())) {
+                            team.addPlayer(tm.getPlayer1());
+                            team.addPlayer(tm.getPlayer2());
+                            team.addPlayer(tm.getPlayer3());
+                            team.addPlayer(tm.getPlayer4());
+                            team.addPlayer(tm.getPlayer5());
+                            team.setTeamScavengeList(tm.getTeamScavengeList());
+                        }
+                    }
                     game.addTeam(team);
                 }
-                //Adding values
-//                game.addTeam(mTeam1.getText().toString());
-//                game.addTeam(mTeam2.getText().toString());
-//                game.addTeam(mTeam3.getText().toString());
-//                game.addTeam(mTeam4.getText().toString());
-//                game.addTeam(mTeam5.getText().toString());
+
                 DatabaseReference newRef = mDatabase.child("Games").push();
                 Log.d("AddGameActivity","adding game "+gameName);
                 Log.d("AddGameActivity","number of teams = "+game.getNumTeams());
@@ -189,11 +239,6 @@ public class AddGameActivity extends AppCompatActivity {
                         Log.d("AddGameActivity", "team5 from snapshot: " + team5);
                         Game newGame = new Game(name);
                         newGame.setTeamList(teams);
-//                        newGame.addTeam(team1);
-//                        newGame.addTeam(team2);
-//                        newGame.addTeam(team3);
-//                        newGame.addTeam(team4);
-//                        newGame.addTeam(team5);
                         newGame.print();
                     }
                 }
