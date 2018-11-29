@@ -122,6 +122,7 @@ public class AddGameActivity extends AppCompatActivity {
                     }
                 }
                 game.addTeam(team);
+                team = new Team();
                 Log.d("AddGameActivity","team2 = "+spinnerTeam2.getSelectedItem().toString());
                 boolean teamNameComparison = spinnerTeam2.getSelectedItem().toString().equals("Marios Mates");
                 Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
@@ -141,6 +142,7 @@ public class AddGameActivity extends AppCompatActivity {
                     }
                     game.addTeam(team);
                 }
+                team = new Team();
                 Log.d("AddGameActivity","team3 = "+spinnerTeam3.getSelectedItem().toString());
                 teamNameComparison = spinnerTeam3.getSelectedItem().toString().equals("Marios Mates");
                 Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
@@ -160,6 +162,7 @@ public class AddGameActivity extends AppCompatActivity {
                     }
                     game.addTeam(team);
                 }
+                team = new Team();
                 Log.d("AddGameActivity","team4 = "+spinnerTeam4.getSelectedItem().toString());
                 teamNameComparison = spinnerTeam4.getSelectedItem().toString().equals("Marios Mates");
                 Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
@@ -179,6 +182,7 @@ public class AddGameActivity extends AppCompatActivity {
                     }
                     game.addTeam(team);
                 }
+                team = new Team();
                 Log.d("AddGameActivity","team5 = "+spinnerTeam5.getSelectedItem().toString());
                 teamNameComparison = spinnerTeam5.getSelectedItem().toString().equals("Marios Mates");
                 Log.d("AddGameActivity","teamNameComparison = "+teamNameComparison);
