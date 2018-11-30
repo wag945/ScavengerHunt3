@@ -80,6 +80,7 @@ public class StartGameActivity extends AppCompatActivity {
     private Button leaderboard;
     private StorageReference mStorage;
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
+    private int count;
 
 
 
@@ -346,6 +347,12 @@ public class StartGameActivity extends AppCompatActivity {
                         mProgressDialog.dismiss();
                         checkBox1.setChecked(true);
 
+                        count ++;
+
+                        if (count == 5){
+                            completeGame();
+
+                        }
                     }
 
 
@@ -394,7 +401,15 @@ public class StartGameActivity extends AppCompatActivity {
                         mProgressDialog.dismiss();
                         checkBox2.setChecked(true);
 
+                        count ++;
+
+                        if (count == 5){
+                            completeGame();
+
+                        }
+
                     }
+
 
 
                 });
@@ -440,6 +455,13 @@ public class StartGameActivity extends AppCompatActivity {
                         Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox3.setChecked(true);
+
+                        count ++;
+
+                        if (count == 5){
+                            completeGame();
+
+                        }
 
                     }
 
@@ -490,6 +512,13 @@ public class StartGameActivity extends AppCompatActivity {
                         mProgressDialog.dismiss();
                         checkBox4.setChecked(true);
 
+                        count ++;
+
+                        if (count == 5){
+                            completeGame();
+
+                        }
+
                     }
 
 
@@ -538,6 +567,13 @@ public class StartGameActivity extends AppCompatActivity {
                         Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox5.setChecked(true);
+
+                        count ++;
+
+                        if (count == 5){
+                            completeGame();
+
+                        }
 
                     }
 
