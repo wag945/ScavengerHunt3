@@ -81,6 +81,7 @@ public class StartGameActivity extends AppCompatActivity {
     private StorageReference mStorage;
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
     private int count;
+    private String timerTextStr= "";
 
 
 
@@ -151,6 +152,30 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
 
+        //getting the game timer from the database
+        DatabaseReference dbRef = database.getReference("Games");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot gameSnapshot: dataSnapshot.getChildren()) {
+                    String name = gameSnapshot.child("gameName").getValue(String.class);
+                    if (name != null && name.equals(gameName)) {
+                        Log.d("StartGameActivity","timer = " + gameSnapshot.child("timerView").getValue(String.class));
+                        if (gameSnapshot.child("timerView").getValue(String.class).toString().equals("00:01")) {
+                            timerText.setText("ENDED");
+                        }
+                        else {
+                            timerText.setText(gameSnapshot.child("timerView").getValue(String.class));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         imageView = findViewById(R.id.imageView);
       //  mSave = findViewById(R.id.save);
@@ -705,7 +730,7 @@ public class StartGameActivity extends AppCompatActivity {
                 seconds = secondsRemaining;
             }
             Log.d("StartGameActivity","minutes = "+minutes+" seconds = "+seconds);
-            String timerTextStr= "";
+//            String timerTextStr= "";
 
             if (seconds < 10) {
                 if (minutes < 1) {
@@ -715,7 +740,7 @@ public class StartGameActivity extends AppCompatActivity {
                     timerTextStr = Long.toString(minutes) + ":0" + Long.toString(seconds);
                 }
                 timerText.setText(timerTextStr);
-                if (minutes < 1 && secondsRemaining < 5) {
+                if (minutes < 1 && secondsRemaining <= 1) {
                     completeGame();
                 }
             } else {
@@ -725,10 +750,32 @@ public class StartGameActivity extends AppCompatActivity {
                 else {
                     timerTextStr = "00:" + Long.toString(seconds);
                 }
-                timerText.setText(timerTextStr);
+//                timerText.setText(timerTextStr);
             }
 
-            gamesRef.child("gameTimer").setValue(timerTextStr);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference();
+
+            Query query = myRef.child("Games").orderByChild("gameName").equalTo(gameName);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getChildrenCount() > 0) {
+                        DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                        String key = nodeDataSnapshot.getKey();
+                        String path = "/" + dataSnapshot.getKey() + "/" + key;
+                        HashMap<String, Object> result = new HashMap<>();
+                        result.put("timerView",timerTextStr);
+                        myRef.child(path).updateChildren(result);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.i("StartGameActivity", ">>> Error:" + "find onCancelled:" + databaseError);
+                }
+            });
+//            gamesRef.child("gameTimer").setValue(timerTextStr);
         }
     }
 
