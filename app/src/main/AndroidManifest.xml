@@ -11,7 +11,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Scavenge"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -40,6 +40,9 @@
         <activity android:name=".GameDetailsActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".StartGameActivity" />
+        <activity android:name=".joinGameActivity"/>
+        <activity android:name=".joinGameActivity1"/>
+        <activity android:name=".joinGameActivity2"/>
 
         <service
             android:name=".BroadcastService"

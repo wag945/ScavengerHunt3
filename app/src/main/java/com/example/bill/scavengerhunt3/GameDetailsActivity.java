@@ -22,6 +22,8 @@ import java.util.HashMap;
 public class GameDetailsActivity extends AppCompatActivity {
 
     private Button mJoinGameButton;
+    private Button mJoinGameButton1;
+    private Button mJoinGameButton2;
     private Button mStartGameButton;
     private TextView mGameNameTextView;
     private TextView mGameStatusTextView;
@@ -50,19 +52,52 @@ public class GameDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         detailGameName = intent.getStringExtra("GameName");
-
         mJoinGameButton = (Button) findViewById(R.id.joinGameButton);
+        mJoinGameButton1 = (Button) findViewById(R.id.joinGameButton1);
+        mJoinGameButton2 = (Button) findViewById(R.id.joinGameButton2);
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
                 Log.i("GameDetailsActivity", "Started service");
 
-                Intent myIntent = new Intent(GameDetailsActivity.this, StartGameActivity.class);
+                Intent myIntent = new Intent(GameDetailsActivity.this, joinGameActivity.class);
                 myIntent.putExtra("gameName", detailGameName);
                 startActivity(myIntent);
+                mJoinGameButton.setVisibility(View.GONE);
+                mJoinGameButton1.setVisibility(View.VISIBLE);
             }
         });
+
+        mJoinGameButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+                Log.i("GameDetailsActivity", "Started service");
+                Intent myIntent = new Intent(GameDetailsActivity.this, joinGameActivity1.class);
+                myIntent.putExtra("gameName", detailGameName);
+                startActivity(myIntent);
+               mJoinGameButton1.setVisibility(View.GONE);
+               mJoinGameButton2.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mJoinGameButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(new Intent(GameDetailsActivity.this, BroadcastService.class));
+                Log.i("GameDetailsActivity", "Started service");
+                Intent myIntent = new Intent(GameDetailsActivity.this, joinGameActivity2.class);
+                myIntent.putExtra("gameName", detailGameName);
+                startActivity(myIntent);
+                mJoinGameButton2.setVisibility(View.GONE);
+                mJoinGameButton1.setVisibility(View.GONE);
+                mJoinGameButton.setVisibility(View.GONE);
+
+
+            }
+        });
+
 
         mStartGameButton = (Button) findViewById(R.id.startGameButton);
         mStartGameButton.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +137,8 @@ public class GameDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+
         DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("Games");
 
         gamesRef.addValueEventListener(new ValueEventListener() {
@@ -130,6 +167,7 @@ public class GameDetailsActivity extends AppCompatActivity {
                             mStartGameButton.setVisibility(View.INVISIBLE);
                         }
 
+
                         Log.d("GameDetailsActivity","teamSnapshot = "+teamSnapshot.toString());
                         String numTeamsStr = teamSnapshot.child("numTeams").getValue().toString();
                         int numTeams = Integer.parseInt(numTeamsStr);
@@ -157,6 +195,8 @@ public class GameDetailsActivity extends AppCompatActivity {
                     }
                 }
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

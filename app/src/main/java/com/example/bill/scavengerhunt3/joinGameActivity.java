@@ -50,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import android.content.BroadcastReceiver;
 
-public class StartGameActivity extends AppCompatActivity {
+public class joinGameActivity extends AppCompatActivity {
 
     private static final int ITEM1 = 1;
     private static final int ITEM2 = 2;
@@ -111,8 +111,8 @@ public class StartGameActivity extends AppCompatActivity {
         returnToGameLobbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(StartGameActivity.this, GameLobbyActivity.class);
-                StartGameActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(joinGameActivity.this, GameLobbyActivity.class);
+                joinGameActivity.this.startActivity(myIntent);
             }
         });
         returnToGameLobbyButton.setVisibility(View.INVISIBLE);
@@ -181,7 +181,7 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
         imageView = findViewById(R.id.imageView);
-      //  mSave = findViewById(R.id.save);
+        //  mSave = findViewById(R.id.save);
 
 
         timerText = (TextView) findViewById(R.id.textView2);
@@ -283,13 +283,13 @@ public class StartGameActivity extends AppCompatActivity {
         leaderboard = (Button) findViewById(R.id.leaderboardButton);
 
         leaderboard.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View view){
-            Intent myIntent = new Intent(StartGameActivity.this, LeaderboardActivity.class);
-            myIntent.putExtra("gameName", gameName);
-            StartGameActivity.this.startActivity(myIntent);
+            @Override
+            public void onClick(View view){
+                Intent myIntent = new Intent(joinGameActivity.this, LeaderboardActivity.class);
+                myIntent.putExtra("gameName", gameName);
+                joinGameActivity.this.startActivity(myIntent);
 
-           }
+            }
         });
 
 
@@ -312,7 +312,7 @@ public class StartGameActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-    @NonNull int[] grantResults){
+                                           @NonNull int[] grantResults){
         // Called when you request permission to read and write to external storage
         switch (requestCode) {
             case REQUEST_STORAGE_PERMISSION: {
@@ -371,7 +371,7 @@ public class StartGameActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
-                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(joinGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox1.setChecked(true);
 
@@ -395,7 +395,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     String key = nodeDataSnapshot.getKey();
                                     String path = "/" + dataSnapshot.getKey() + "/" + key;
                                     HashMap<String, Object> result = new HashMap<>();
-                                    nodeDataSnapshot.getRef().child("teamList").child("0").child("teamScavengeList").child("0").child("found").setValue(true);
+                                    nodeDataSnapshot.getRef().child("teamList").child("1").child("teamScavengeList").child("0").child("found").setValue(true);
                                     myRef.child(path).updateChildren(result);
                                 }
                             }
@@ -448,7 +448,7 @@ public class StartGameActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
-                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(joinGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox2.setChecked(true);
 
@@ -471,7 +471,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     String key = nodeDataSnapshot.getKey();
                                     String path = "/" + dataSnapshot.getKey() + "/" + key;
                                     HashMap<String, Object> result = new HashMap<>();
-                                    nodeDataSnapshot.getRef().child("teamList").child("0").child("teamScavengeList").child("1").child("found").setValue(true);
+                                    nodeDataSnapshot.getRef().child("teamList").child("1").child("teamScavengeList").child("1").child("found").setValue(true);
                                     myRef.child(path).updateChildren(result);
                                 }
                             }
@@ -527,7 +527,7 @@ public class StartGameActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
-                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(joinGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox3.setChecked(true);
 
@@ -550,7 +550,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     String key = nodeDataSnapshot.getKey();
                                     String path = "/" + dataSnapshot.getKey() + "/" + key;
                                     HashMap<String, Object> result = new HashMap<>();
-                                    nodeDataSnapshot.getRef().child("teamList").child("0").child("teamScavengeList").child("2").child("found").setValue(true);
+                                    nodeDataSnapshot.getRef().child("teamList").child("1").child("teamScavengeList").child("2").child("found").setValue(true);
                                     myRef.child(path).updateChildren(result);
                                 }
                             }
@@ -609,7 +609,7 @@ public class StartGameActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
-                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(joinGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox4.setChecked(true);
 
@@ -632,7 +632,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     String key = nodeDataSnapshot.getKey();
                                     String path = "/" + dataSnapshot.getKey() + "/" + key;
                                     HashMap<String, Object> result = new HashMap<>();
-                                    nodeDataSnapshot.getRef().child("teamList").child("0").child("teamScavengeList").child("3").child("found").setValue(true);
+                                    nodeDataSnapshot.getRef().child("teamList").child("1").child("teamScavengeList").child("3").child("found").setValue(true);
                                     myRef.child(path).updateChildren(result);
                                 }
                             }
@@ -689,7 +689,7 @@ public class StartGameActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 
-                        Toast.makeText(StartGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(joinGameActivity.this, "ITEM SCAVENGED!", Toast.LENGTH_LONG).show();
                         mProgressDialog.dismiss();
                         checkBox5.setChecked(true);
 
@@ -712,7 +712,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     String key = nodeDataSnapshot.getKey();
                                     String path = "/" + dataSnapshot.getKey() + "/" + key;
                                     HashMap<String, Object> result = new HashMap<>();
-                                    nodeDataSnapshot.getRef().child("teamList").child("0").child("teamScavengeList").child("4").child("found").setValue(true);
+                                    nodeDataSnapshot.getRef().child("teamList").child("1").child("teamScavengeList").child("4").child("found").setValue(true);
                                     myRef.child(path).updateChildren(result);
                                 }
                             }
@@ -735,7 +735,7 @@ public class StartGameActivity extends AppCompatActivity {
         }
 
     }
-     //* Creates a temporary image file and captures a picture to store in it.
+    //* Creates a temporary image file and captures a picture to store in it.
 
     private void launchCamera () {
 
