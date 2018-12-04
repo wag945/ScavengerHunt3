@@ -104,6 +104,7 @@ public class StartGameActivity extends AppCompatActivity {
         itemButton3 = findViewById(R.id.itemButton3);
         itemButton4 = findViewById(R.id.itemButton4);
         itemButton5 = findViewById(R.id.itemButton5);
+       // mSave = findViewById(R.id.mSave);
 
         leaderBoardButton = findViewById(R.id.leaderboardButton);
 
@@ -204,6 +205,11 @@ public class StartGameActivity extends AppCompatActivity {
 
                 startActivityForResult(intent, ITEM1);
 
+                mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
+
+                // Set the new bitmap to the ImageView
+                imageView.setImageBitmap(mResultsBitmap);
+
             }
         });
         itemButton2.setOnClickListener(v -> {
@@ -293,12 +299,11 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
 
-  /*      mSave.setOnClickListener((View v) -> {
+     /*   mSave.setOnClickListener((View v) -> {
             CameraExcutor.diskIO().execute(() -> {
-                // Delete the temporary image file
-                BitmapUtils.deleteImageFile(this, mTempPhotoPath);
 
-                // Save the image
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] dataBAOS = baos.toByteArray();
                 BitmapUtils.saveImage(this, mResultsBitmap);
 
             });
@@ -306,8 +311,7 @@ public class StartGameActivity extends AppCompatActivity {
             Toast.makeText(this, "Scavenged Item", Toast.LENGTH_LONG).show();
 
         });
-
-        */
+*/
     }
 
     @Override

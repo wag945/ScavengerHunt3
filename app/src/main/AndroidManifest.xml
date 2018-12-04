@@ -41,8 +41,6 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".StartGameActivity" />
         <activity android:name=".joinGameActivity"/>
-        <activity android:name=".joinGameActivity1"/>
-        <activity android:name=".joinGameActivity2"/>
 
         <service
             android:name=".BroadcastService"
